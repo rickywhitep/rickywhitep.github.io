@@ -23,11 +23,17 @@
 <body>
     <h1>Kelly Criterion Calculator</h1>
     
-    <label for="odds">Betting Odds (Decimal format):</label>
-    <input type="number" id="odds" placeholder="Enter odds" oninput="validity.valid||(value='');">
+   <label for="odds">Betting Odds (Decimal format):</label>
+   <input type="text" id="odds" placeholder="Enter odds" oninput="validity.valid||(value='');">
 
     <label for="percentage">Percentage of Occurrence:</label>
-    <input type="number" id="percentage" placeholder="Enter percentage" oninput="validity.valid||(value='');">
+    <input type="text" id="percentage" placeholder="Enter percentage" oninput="validity.valid||(value='');">
+
+<!--     <label for="odds">Betting Odds (Decimal format):</label>
+    <input type="text" id="odds" placeholder="Enter odds">
+
+    <label for="percentage">Percentage of Occurrence:</label>
+    <input type="text" id="percentage" placeholder="Enter percentage"> -->
 
     <button onclick="calculateKelly()">Calculate Kelly Criterion</button>
 
