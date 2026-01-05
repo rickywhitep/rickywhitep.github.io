@@ -4,28 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math Cards MVP - rickywhitep</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                enableMenu: false
+            }
+        };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
         body {
             background-color: #000;
             color: #fff;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             margin: 0;
             display: flex;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* Barra lateral (Árbol de contenidos) */
+        /* Barra lateral */
         #sidebar {
             width: 280px;
             border-right: 1px solid #333;
             padding: 20px;
             overflow-y: auto;
             background-color: #0a0a0a;
+            flex-shrink: 0;
         }
-        h3 { color: #00ffcc; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        h3 { color: #00ffcc; border-bottom: 1px solid #333; padding-bottom: 10px; font-size: 1.2rem; }
         .csv-link {
             display: block;
             padding: 12px;
@@ -34,7 +48,8 @@
             cursor: pointer;
             border-radius: 5px;
             margin-bottom: 5px;
-            transition: 0.2s;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
         }
         .csv-link:hover { background: #222; color: #fff; }
         .csv-link.active { background: #00ffcc22; color: #00ffcc; font-weight: bold; border: 1px solid #00ffcc; }
@@ -48,57 +63,69 @@
             justify-content: center;
             padding: 40px;
             background: radial-gradient(circle at center, #111 0%, #000 100%);
+            overflow-y: auto;
         }
 
         .card-container {
             max-width: 900px;
             width: 100%;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            text-align: center;
         }
 
         #anverso {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             margin-bottom: 30px;
-            line-height: 1.2;
-            color: #ffffff;
+            line-height: 1.3;
         }
 
         #reverso {
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: #00ffcc;
             padding-top: 30px;
             border-top: 2px dashed #333;
-            display: none; /* Se oculta al cargar tarjeta nueva */
+            display: none;
+            line-height: 1.3;
+        }
+
+        /* Fórmulas resaltadas */
+        mjx-container {
+            color: #00ffcc !important;
+            font-size: 110% !important;
         }
 
         /* Controles */
         .controls {
-            margin-top: 60px;
+            margin-top: 50px;
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         button {
             background: #1a1a1a;
             color: #fff;
             border: 1px solid #444;
-            padding: 18px 35px;
+            padding: 20px 40px;
             font-size: 1.1rem;
             cursor: pointer;
             border-radius: 12px;
-            transition: all 0.2s;
+            min-width: 150px;
         }
-        button:hover { background: #333; border-color: #00ffcc; }
+        button:active { transform: scale(0.95); }
         #btnAction { background: #00ffcc; color: #000; font-weight: bold; border: none; }
-        #btnAction:hover { background: #00ccaa; transform: scale(1.05); }
 
-        .status { margin-top: 25px; color: #555; font-size: 0.9rem; letter-spacing: 1px; }
+        .status { margin-top: 25px; color: #555; font-size: 0.9rem; font-weight: bold; }
 
-        /* Estilo para el check de "Visto" en la lista lateral */
+        /* Icono Visto */
         .visto-icon { float: right; color: #00ffcc; display: none; }
         .visto .visto-icon { display: inline; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            #sidebar { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid #333; }
+            #anverso { font-size: 1.8rem; }
+            #reverso { font-size: 1.5rem; }
+        }
     </style>
 </head>
 <body>
@@ -110,7 +137,7 @@
 
 <div id="main">
     <div class="card-container">
-        <div id="anverso">Selecciona un tema en el menú lateral para comenzar</div>
+        <div id="anverso">Selecciona un tema lateral</div>
         <div id="reverso"></div>
     </div>
 
@@ -131,7 +158,6 @@
     let showingAnswer = false;
     let currentFileUrl = "";
 
-    // 1. Cargar el árbol de archivos desde la API de GitHub
     async function loadTree() {
         try {
             const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/data`;
@@ -147,9 +173,7 @@
                     div.className = 'csv-link';
                     const fileName = file.name.replace('.csv', '');
                     div.innerHTML = `📄 ${fileName} <span class="visto-icon">✔</span>`;
-                    div.id = `link-${file.sha}`;
                     
-                    // Comprobar si ya se marcó como visto en LocalStorage
                     if (localStorage.getItem(file.download_url)) div.classList.add('visto');
 
                     div.onclick = () => {
@@ -161,36 +185,30 @@
                 }
             });
         } catch (e) {
-            document.getElementById('tree').innerText = "Error al cargar el árbol de datos.";
+            document.getElementById('tree').innerText = "Error cargando /data";
         }
     }
 
-    // 2. Leer el CSV seleccionado
     async function loadCSV(url) {
         currentFileUrl = url;
         try {
             const response = await fetch(url);
             const data = await response.text();
-            
-            // Procesar líneas, separar por punto y coma
             currentCards = data.split('\n')
                 .filter(line => line.includes(';'))
                 .map(line => {
                     const parts = line.split(';');
                     return { anverso: parts[0], reverso: parts[1] };
                 });
-
             currentIndex = 0;
             showCard();
         } catch (e) {
-            alert("Error leyendo el archivo CSV.");
+            alert("Error al cargar el CSV");
         }
     }
 
-    // 3. Mostrar tarjeta (solo anverso)
     function showCard() {
         if (currentCards.length === 0) return;
-        
         showingAnswer = false;
         document.getElementById('reverso').style.display = 'none';
         document.getElementById('btnAction').innerText = "MOSTRAR RESPUESTA";
@@ -200,20 +218,21 @@
         document.getElementById('reverso').innerHTML = currentCards[currentIndex].reverso;
         document.getElementById('counter').innerText = `TARJETA ${currentIndex + 1} / ${currentCards.length}`;
         
-        // Renderizar LaTeX
-        if (window.MathJax) {
-            MathJax.typesetPromise();
+        // Renderizado MathJax
+        if (window.MathJax && window.MathJax.typeset) {
+            window.MathJax.typeset();
         }
     }
 
-    // 4. Mostrar respuesta (manteniendo el anverso visible)
     function toggleCard() {
         if (!showingAnswer) {
             document.getElementById('reverso').style.display = 'block';
             document.getElementById('btnAction').innerText = "ENTENDIDO (SIGUIENTE)";
-            document.getElementById('btnAction').style.background = "#fff";
+            document.getElementById('btnAction').style.background = "#ffffff";
             showingAnswer = true;
-            MathJax.typesetPromise();
+            if (window.MathJax && window.MathJax.typeset) {
+                window.MathJax.typeset();
+            }
         } else {
             nextCard();
         }
@@ -224,10 +243,10 @@
             currentIndex++;
             showCard();
         } else {
-            // Si llega al final, marcar el archivo como visto
             localStorage.setItem(currentFileUrl, "visto");
-            document.querySelector('.csv-link.active').classList.add('visto');
-            alert("¡Has terminado este bloque!");
+            const activeLink = document.querySelector('.csv-link.active');
+            if (activeLink) activeLink.classList.add('visto');
+            alert("Bloque completado");
         }
     }
 
@@ -238,9 +257,7 @@
         }
     }
 
-    // Inicializar al cargar la página
     window.onload = loadTree;
 </script>
-
 </body>
 </html>
