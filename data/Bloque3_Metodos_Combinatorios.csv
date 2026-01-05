@@ -1,0 +1,19 @@
+Principio de Adición [3-1 Técnicas Básicas];Sean $A_{1}, \dots, A_{n}$ conjuntos finitos disjuntos dos a dos ($A_{i}\cap A_{j}=\emptyset$). Entonces $|A_{1}\cup \dots \cup A_{n}| = |A_{1}| + \dots + |A_{n}|$.
+Principio de Multiplicación [3-1 Técnicas Básicas];Si un experimento se compone de $n$ elecciones sucesivas con $m_1, m_2, \dots, m_n$ opciones respectivamente, el total de resultados es $m_1 \cdot m_2 \cdots m_n$. Formalmente $|A_1 \times \dots \times A_n| = \prod |A_i|$.
+Principio de Distribución (Palomar) [3-1 Técnicas Básicas];Si se distribuyen $np+m$ objetos en $n$ cajas (con $m>0$), entonces al menos una caja contiene $p+1$ o más objetos. (Principio del Cajón de Dirichlet).
+Permutación [3-2 Permutaciones y Combinaciones];Una permutación de un conjunto $A$ es una biyección de $A$ en sí mismo. El número de permutaciones de $n$ elementos es $P(n) = n!$.
+Variaciones sin repetición [3-2 Permutaciones y Combinaciones];Número de listas ordenadas de $r$ elementos distintos elegidos de un conjunto de $n$: $V(n,r) = \frac{n!}{(n-r)!}$.
+Variaciones con repetición [3-2 Permutaciones y Combinaciones];Número de listas ordenadas de $r$ elementos elegidos de un conjunto de $n$ (permitiendo repeticiones): $VR(n,r) = n^r$.
+Combinaciones [3-2 Permutaciones y Combinaciones];Número de subconjuntos de $r$ elementos elegidos de un conjunto de $n$ (sin importar el orden): $C(n,r) = \binom{n}{r} = \frac{n!}{r!(n-r)!}$.
+Combinaciones con Repetición [3-2 Permutaciones y Combinaciones];Número de formas de elegir $r$ elementos de un conjunto de $n$ permitiendo repeticiones (no importa el orden): $CR(n,r) = C(n+r-1, r) = \binom{n+r-1}{r}$.
+Permutaciones Circulares [3-2 Permutaciones y Combinaciones];Número de formas de colocar $r$ objetos de $n$ disponibles en un círculo (rotaciones equivalentes): $C(n,r) \cdot (r-1)!$.
+Identidad de Pascal [3-3 Teorema del Binomio];Sean $n, k$ enteros con $1 \le k \le n-1$. Entonces $\binom{n}{k} = \binom{n-1}{k} + \binom{n-1}{k-1}$.
+Teorema del Binomio de Newton [3-3 Teorema del Binomio];Para todo $n \in \mathbb{N}$ y $x, y \in \mathbb{R}$: $(x+y)^n = \sum_{k=0}^{n} \binom{n}{k} x^{n-k} y^k$.
+Coeficiente Multinómico [3-3 Teorema del Binomio];Número de formas de ordenar $n$ objetos donde hay $n_1$ iguales del tipo 1, ..., $n_k$ del tipo k: $P(n, n_1 \dots n_k) = \frac{n!}{n_1! \dots n_k!}$.
+Principio de Inclusión-Exclusión [3-4 Inclusión-Exclusión];Para calcular el cardinal de la unión de conjuntos: $|\cup S_i| = \sum |S_i| - \sum |S_i \cap S_j| + \sum |S_i \cap S_j \cap S_k| - \dots + (-1)^{n-1} |\cap S_i|$.
+Desarreglos (Desordenaciones) [3-4 Inclusión-Exclusión];Permutaciones de $n$ elementos que no dejan fijo a ninguno ($d(n)$). Fórmula: $d(n) = n! \sum_{j=0}^{n} \frac{(-1)^j}{j!}$.
+Definición de Recursividad [3-5 Recursividad];Una función $f: \mathbb{N} \to \mathbb{R}$ está definida recursivamente si se dan valores iniciales y una regla para $f(n)$ en términos de anteriores ($f(n-1), \dots$).
+Sucesión de Fibonacci [3-5 Recursividad];Sucesión definida por $fib(n) = fib(n-1) + fib(n-2)$ para $n \ge 3$, con $fib(1)=1, fib(2)=2$.
+Fórmula de Binet [3-5 Recursividad];Expresión cerrada para Fibonacci: $fib(n) = \frac{1}{\sqrt{5}} [(\frac{1+\sqrt{5}}{2})^{n+1} - (\frac{1-\sqrt{5}}{2})^{n+1}]$.
+Relación Recurrente Lineal Homogénea [3-5 Recursividad];Ecuación de la forma $r(n) - a_1 r(n-1) - \dots - a_t r(n-t) = 0$.
+Ecuación Característica [3-5 Recursividad];Ecuación polinómica $x^t - a_1 x^{t-1} - \dots - a_t = 0$ asociada a una recurrencia lineal. Si $b$ es raíz, $r(n)=b^n$ es solución básica.

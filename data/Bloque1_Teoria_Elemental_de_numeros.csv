@@ -1,0 +1,45 @@
+Definición de Divisibilidad [1-1 Algoritmos de División];Sean $a, b \in \mathbb{Z}$. Se dice que $a$ divide a $b$ (escrito $a|b$) si $a \neq 0$ y existe un entero $q$ tal que $b = a \cdot q$.
+Algoritmo de la División [1-1 Algoritmos de División];Dados $a \in \mathbb{Z}$ y $b \in \mathbb{N}$, existen números enteros únicos $q$ (cociente) y $r$ (resto) tales que $a = bq + r$ con $0 \le r < b$.
+Valor Absoluto [1-1 Algoritmos de División];Aplicación $|\cdot|: \mathbb{Z} \to \mathbb{Z}$ definida por $|n| = n$ si $n \ge 0$ y $|n| = -n$ si $n < 0$. Cumple $|ab| = |a||b|$ y $|a+b| \le |a|+|b|$.
+Definición de Operador MOD [1-1 Algoritmos de División];Sean $a, b \in \mathbb{Z}$ con $b \neq 0$. Si $a = bq + r$ con $0 \le r < |b|$, se define $a \text{ MOD } b = r$.
+Máximo Común Divisor (m.c.d.) [1-1 Algoritmos de División];Sean $a, b \in \mathbb{Z}$. El $m.c.d.(a, b)$ es el entero $d > 0$ tal que $d|a$, $d|b$ y para todo divisor común $d'$, $d'|d$. Si $a=b=0$, $m.c.d.(0,0)=0$.
+Teorema de Existencia del m.c.d. (Bézout) [1-1 Algoritmos de División];Sean $a, b \in \mathbb{Z}$ no ambos nulos. Existe un único $d = m.c.d.(a, b)$ y existen $x, y \in \mathbb{Z}$ tales que $d = ax + by$. $d$ es el menor entero positivo de esa forma.
+Corolario de Primos Relativos [1-1 Algoritmos de División];Sean $a, b \in \mathbb{Z}$ no nulos. $m.c.d.(a, b) = 1$ si y solo si existen enteros $s, t$ tales que $as + bt = 1$.
+Teorema del m.c.d. del resto [1-1 Algoritmos de División];Si $a = bq + r$, entonces $m.c.d.(a, b) = m.c.d.(b, r)$. Base del Algoritmo de Euclides.
+Propiedad Homogénea del m.c.d. [1-1 Algoritmos de División];Si $k > 0$, entonces $m.c.d.(ka, kb) = k \cdot m.c.d.(a, b)$.
+Definición de Número Primo [1-2 Números Primos];Un entero $p > 1$ es primo si sus únicos divisores positivos son $1$ y $p$. Si no, es compuesto.
+Primos entre sí [1-2 Números Primos];Una familia de enteros $a_1, \dots, a_n$ son primos entre sí si $m.c.d.(a_1, \dots, a_n) = 1$.
+Lema de Euclides [1-2 Números Primos];Sean $a, b, c \in \mathbb{Z}$. Si $a$ y $c$ son primos entre sí y $c | ab$, entonces $c | b$.
+Propiedad Primalidad y Producto [1-2 Números Primos];Sea $p$ un número primo. Si $p | ab$, entonces $p | a$ ó $p | b$. Generalizando: si $p | a_1 \dots a_r$, entonces $p | a_i$ para algún $i$.
+Teorema Fundamental de la Aritmética [1-2 Números Primos];Todo entero $n > 1$ puede expresarse de forma única como producto de primos $n = p_1 p_2 \dots p_r$ con $p_1 \le p_2 \le \dots \le p_r$.
+Factorización Canónica [1-2 Números Primos];Todo $n \in \mathbb{Z}, |n| > 1$ admite una factorización única $n = \pm p_1^{\alpha_1} \dots p_t^{\alpha_t}$ con $p_1 < \dots < p_t$ primos y $\alpha_i \ge 1$.
+Teorema de Infinitud de los Primos [1-2 Números Primos];El número de primos es infinito (Demostración de Euclides por reducción al absurdo).
+Cota del n-ésimo Primo [1-2 Números Primos];Si $p_n$ es el n-ésimo número primo, entonces $p_n \le 2^{2^{n-1}}$.
+Primos de la forma 4n+3 [1-2 Números Primos];Existen infinitos números primos de la forma $4n+3$.
+Test de Primalidad por Raíz [1-2 Números Primos];Sea $a > 1$. Si $a$ no es divisible por ningún primo $p \le \sqrt{a}$, entonces $a$ es primo.
+Irracionalidad de Raíz de 2 [1-2 Números Primos];El número $\sqrt{2}$ es irracional.
+Mínimo Común Múltiplo (m.c.m.) [1-2 Números Primos];El $m.c.m.(a, b)$ es el menor entero positivo que es múltiplo de $a$ y de $b$.
+Cálculo de m.c.d. y m.c.m. por factores [1-2 Números Primos];Si $a = \prod p_i^{\alpha_i}$ y $b = \prod p_i^{\beta_i}$, entonces $m.c.d.(a,b) = \prod p_i^{\min(\alpha_i, \beta_i)}$ y $m.c.m.(a,b) = \prod p_i^{\max(\alpha_i, \beta_i)}$.
+Relación Fundamental m.c.d.-m.c.m. [1-2 Números Primos];Sean $a, b$ enteros no nulos. $|a \cdot b| = m.c.d.(a, b) \cdot m.c.m.(a, b)$.
+Primos de Mersenne [1-2 Números Primos];Números de la forma $M_n = 2^n - 1$. Si $M_n$ es primo, $n$ debe ser primo.
+Principio de Inducción Matemática [1-3 Inducción];Sea $S \subseteq \mathbb{N}$. Si $1 \in S$ y $(\forall k \ge 1, k \in S \implies k+1 \in S)$, entonces $S = \mathbb{N}$.
+Principio del Buen Orden [1-3 Inducción];Todo subconjunto no vacío de números enteros no negativos tiene un primer elemento.
+Principio Fuerte de Inducción [1-3 Inducción];Sea $S$ un conjunto de enteros positivos. Si $1 \in S$ y $(\forall n > 1, (\forall k < n, k \in S) \implies n \in S)$, entonces $S = \mathbb{N}$.
+Teorema Ecuación Diofántica Lineal [1-4 Ecuaciones Diofánticas];La ecuación $ax + by = n$ tiene solución entera $\iff d = m.c.d.(a, b)$ divide a $n$.
+Solución General Ec. Diofántica Lineal [1-4 Ecuaciones Diofánticas];Si $(x_0, y_0)$ es una solución particular de $ax + by = n$, la solución general es $x = x_0 + (b/d)t$, $y = y_0 - (a/d)t$, con $t \in \mathbb{Z}$.
+Teorema Ecuación Cuadrática Simple [1-4 Ecuaciones Diofánticas];La ecuación $x^2 - y^2 = n$ ($n > 0$) tiene solución $\iff n$ se puede factorizar como producto de dos números de la misma paridad ($n=ab, a \equiv b \pmod 2$). Solución: $x = (a+b)/2, y = (a-b)/2$.
+Algoritmo de Factorización de Fermat [1-4 Ecuaciones Diofánticas];Para factorizar $n$ impar, buscar $x^2 - y^2 = n$. Se busca $q \ge \sqrt{n}$ tal que $q^2 - n$ sea un cuadrado perfecto ($y^2$). Entonces $n = (q-y)(q+y)$.
+Ternas Pitagóricas Primitivas [1-4 Ecuaciones Diofánticas];Las soluciones de $x^2 + y^2 = z^2$ con $x, y, z > 0$, $m.c.d.(x, y, z)=1$ y $x$ par son: $x = 2st, y = s^2 - t^2, z = s^2 + t^2$ con $s > t > 0$, coprimos y de distinta paridad.
+Último Teorema de Fermat (caso n=4) [1-4 Ecuaciones Diofánticas];La ecuación $x^4 + y^4 = z^2$ no tiene soluciones enteras con $x, y, z$ naturales. (Implica imposibilidad de $x^4 + y^4 = z^4$).
+Definición de Congruencia [1-5 Congruencias];Sean $a, b \in \mathbb{Z}, m > 0$. $a \equiv b \pmod m \iff m | (a - b)$.
+Menor Residuo No Negativo [1-5 Congruencias];Fijado $m$, todo entero $a$ es congruente con un único $r \in \{0, 1, \dots, m-1\}$.
+Propiedades de Congruencia [1-5 Congruencias];Si $a \equiv b \pmod m$ y $c \equiv d \pmod m$, entonces $a+c \equiv b+d \pmod m$ y $ac \equiv bd \pmod m$.
+Cancelación en Congruencias [1-5 Congruencias];Si $ac \equiv bc \pmod m$ y $m.c.d.(c, m) = 1$, entonces $a \equiv b \pmod m$.
+Teorema Inverso Modular [1-5 Congruencias];La ecuación lineal $ax \equiv b \pmod m$ tiene solución $\iff d = m.c.d.(a, m)$ divide a $b$. Si tiene solución, hay exactamente $d$ soluciones incongruentes módulo $m$.
+Teorema Chino del Resto [1-5 Congruencias];Si $m_1, \dots, m_k$ son coprimos dos a dos, el sistema $x \equiv a_i \pmod{m_i}$ tiene una solución única módulo $M = m_1 \dots m_k$.
+Función Phi de Euler $\phi(n)$ [1-5 Congruencias];Cuenta los enteros positivos $\le n$ coprimos con $n$. Si $n = p_1^{\alpha_1} \dots p_k^{\alpha_k}$, entonces $\phi(n) = n \prod (1 - 1/p_i)$.
+Teorema de Euler [1-5 Congruencias];Si $m \ge 1$ y $m.c.d.(a, m) = 1$, entonces $a^{\phi(m)} \equiv 1 \pmod m$.
+Pequeño Teorema de Fermat [1-5 Congruencias];Si $p$ es primo y $p \nmid a$, entonces $a^{p-1} \equiv 1 \pmod p$. Equivalente a $a^p \equiv a \pmod p$ para todo $a$.
+Teorema de Wilson [1-5 Congruencias];Si $p$ es primo, entonces $(p-1)! \equiv -1 \pmod p$.
+Teorema de Representación en Base b [1-6 Sistemas de Numeración];Sea $b \ge 2$. Todo $n \in \mathbb{N}$ se escribe de manera única como $n = a_k b^k + \dots + a_1 b + a_0$ con $0 \le a_i < b$.
+Criterio General de Divisibilidad [1-6 Sistemas de Numeración];Sea $n = \sum a_i 10^i$. $n$ es divisible por $k \iff \sum a_i r_i$ es divisible por $k$, donde $r_i = 10^i \text{ MOD } k$.

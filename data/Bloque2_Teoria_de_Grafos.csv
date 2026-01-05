@@ -1,0 +1,43 @@
+Definición de Grafo [2-1 Grafos];Un grafo $G$ consta de un conjunto $V$ de vértices y un conjunto $E$ de pares no ordenados de elementos distintos de $V$ (aristas). Se denota $G=(V,E)$.
+Vértices Adyacentes [2-1 Grafos];Dados $u, v \in V$, si $\{u,v\} \in E$ (arista $uv$), se dice que $u$ y $v$ son adyacentes.
+Multigrafo [2-1 Grafos];Variación de grafo donde el conjunto de aristas puede contener varias aristas distintas con el mismo par de extremos.
+Pseudografo [2-1 Grafos];Variación de grafo donde están permitidas aristas cuyos extremos coinciden (lazos).
+Definición de Digrafo [2-1 Grafos];Grafo dirigido donde a cada arista se le asigna un orden de sus extremos (pares ordenados).
+Isomorfismo de Grafos [2-1 Grafos];Dos grafos $G=(V,E)$ y $G'=(V',E')$ son isomorfos si existe una biyección $f: V \to V'$ tal que $uv \in E \iff f(u)f(v) \in E'$.
+Grado de un Vértice [2-1 Grafos];Sea $u \in V$. El grado $gr(u)$ es el número de aristas de $G$ que tienen a $u$ por extremo.
+Primer Teorema de la Teoría de Grafos [2-1 Grafos];En todo grafo $G=(V,E)$, $\sum_{i=1}^{p} gr(v_i) = 2 \#E$. El número de vértices de grado impar es par.
+Subgrafo [2-1 Grafos];$H$ es subgrafo de $G$ si $V(H) \subseteq V(G)$ y $E(H) \subseteq E(G)$.
+Grafo Regular [2-1 Grafos];Un grafo es $k$-regular si todos sus vértices tienen grado $k$.
+Grafo Completo ($K_n$) [2-1 Grafos];Grafo donde cualquier par de vértices está formado por los extremos de una arista. Un grafo completo de $n$ vértices tiene $n(n-1)/2$ aristas.
+Autómata Finito [2-1 Grafos];Quinteto $M=(Q,S,d,q,F)$ donde $Q$ son estados, $S$ alfabeto, $d: Q \times S \to Q$ función de transición, $q$ estado inicial y $F$ estados finales. Representable por digrafos.
+Camino [2-2 Eulerianos y Hamiltonianos];Sucesión $v_0, v_0v_1, v_1, \dots, v_n$ donde cada arista tiene por extremos los vértices adyacentes. Longitud = número de aristas.
+Camino Simple y Ciclo [2-2 Eulerianos y Hamiltonianos];Un camino es simple si no repite vértices. Un ciclo es un camino cerrado simple (salvo $v_0=v_n$).
+Grafo Conexo [2-2 Eulerianos y Hamiltonianos];$G$ es conexo si para todo par $u,v$ existe un camino que los conecta. Relación de equivalencia que define componentes conexas.
+Circuito Euleriano [2-2 Eulerianos y Hamiltonianos];Camino cerrado que contiene todas las aristas de $G$ apareciendo cada una exactamente una vez.
+Teorema de Euler (Grafos Eulerianos) [2-2 Eulerianos y Hamiltonianos];Un grafo conexo es euleriano (admite circuito euleriano) si y solo si el grado de todo vértice es par.
+Camino Euleriano no cerrado [2-2 Eulerianos y Hamiltonianos];Un grafo conexo admite camino euleriano no cerrado $\iff$ tiene exactamente dos vértices de grado impar.
+Camino/Ciclo Hamiltoniano [2-2 Eulerianos y Hamiltonianos];Camino simple que contiene todos los vértices de $G$. Si es cerrado, es un ciclo hamiltoniano.
+Teorema de Dirac (Hamiltoniano) [2-2 Eulerianos y Hamiltonianos];Sea $G$ simple con $n \ge 3$ vértices. Si $\forall v \in V, gr(v) \ge n/2$, entonces $G$ es hamiltoniano.
+Teorema de Ore (Hamiltoniano) [2-2 Eulerianos y Hamiltonianos];Sea $G$ con $n$ vértices. Si $gr(u) + gr(v) \ge n-1$ para todo par de vértices no adyacentes, $G$ tiene camino hamiltoniano.
+Matriz de Adyacencia [2-3 Exploración];Matriz $M=(m_{ij})$ donde $m_{ij}=1$ si $v_iv_j \in E$ (o $v_i \to v_j$ en digrafos) y $0$ en otro caso.
+Teorema de Caminos de Longitud n [2-3 Exploración];La entrada $(i,j)$ de la matriz $M^n$ es el número de caminos de longitud $n$ entre $v_i$ y $v_j$.
+Definición de Árbol [2-3 Exploración];Grafo conexo sin ciclos.
+Caracterización de Árboles [2-3 Exploración];$T$ es un árbol $\iff$ cada par de vértices de $T$ se conecta por un único camino simple.
+Subárbol Conectante (Spanning Tree) [2-3 Exploración];Subgrafo de $G$ que es un árbol y contiene todos los vértices de $G$. Todo grafo conexo admite uno.
+Árbol con Raíz [2-3 Exploración];Par $(T,r)$ donde $r \in V$ es la raíz. Define un orden parcial $v \ge w$ si el camino de $r$ a $w$ pasa por $v$.
+Grafo Etiquetado [2-3 Exploración];Grafo con aplicación $d: E \to C$ (longitudes/pesos). Distancia entre vértices es la longitud del camino mínimo.
+Algoritmo de Dijkstra [2-3 Exploración];Algoritmo para hallar la distancia mínima desde un vértice $x$ al resto en un digrafo etiquetado con valores positivos.
+Grafo Plano y Mapa [2-4 Mapas];Grafo que admite representación en el plano sin cruces de aristas. Tal representación se llama mapa.
+Grado de una Región [2-4 Mapas];Longitud del camino que bordea una región en un mapa.
+Teorema de Grados en Mapas [2-4 Mapas];La suma de los grados de las regiones de un mapa es igual a $2 \#E$.
+Fórmula de Euler (Grafos Planos) [2-4 Mapas];Para un mapa conexo plano: $\#V - \#E + \#R = 2$, donde $\#R$ es el número de regiones.
+Desigualdad de Aristas (Planos) [2-4 Mapas];Si $G$ es plano conexo con $\#V > 2$, entonces $\#E \le 3\#V - 6$. Si no tiene triángulos ($K_3$), $\#E \le 2\#V - 4$.
+Grafos No Planos Elementales [2-4 Mapas];$K_5$ (completo de 5 vértices) y $K_{3,3}$ (bipartito completo) no son planos.
+Teorema de Kuratowski [2-4 Mapas];Un grafo es plano $\iff$ no contiene ningún subgrafo isomorfo a una subdivisión de $K_5$ o $K_{3,3}$.
+Teorema de los Cuatro Colores [2-4 Mapas];Todo mapa plano puede ser coloreado con a lo sumo 4 colores tal que regiones adyacentes no compartan color.
+Grafo Dual [2-4 Mapas];Grafo $G_M$ cuyos vértices son las regiones de un mapa $M$; dos vértices se unen si las regiones comparten arista.
+Coloración de Vértices [2-4 Mapas];Asignación $V \to C$ tal que vértices adyacentes tengan distinto color.
+Grafo Bipartito [2-4 Mapas];Grafo cuyos vértices admiten una coloración con 2 colores (se dividen en dos conjuntos disjuntos sin aristas internas).
+Caracterización Grafo Bipartito [2-4 Mapas];Un grafo es bipartito $\iff$ no tiene ciclos de longitud impar.
+Clique [2-4 Mapas];Subconjunto de vértices tal que todo par está unido por una arista (subgrafo completo).
+Problemas NP en Grafos [2-4 Mapas];Determinar si un grafo es Hamiltoniano, su Número Cromático o el Clique Máximo son problemas de complejidad NP.
