@@ -160,7 +160,7 @@
             #sidebar { width: 100%; position: absolute; height: 100%; }
             /* Mostrar el botón "Temario" solo cuando estamos viendo una tarjeta (evita tapar el árbol) */
             #btnBack { display: none; }
-            body.viewing-card #btnBack { display: block; z-index: 60; }
+            body.viewing-card #btnBack { display: block; z-index: 100; position: fixed; top: calc(env(safe-area-inset-top, 0px) + 12px); left: 12px; }
 
             /* Cuando el sidebar está oculto, evitar que capture eventos táctiles */
             body.viewing-card #sidebar { transform: translateX(-100%); pointer-events: none; }
@@ -168,21 +168,25 @@
             #anverso { font-size: 1.5rem; }
             #reverso { font-size: 1.3rem; }
 
-            /* Mantener la botonera siempre accesible sobre la UI del iPhone */
+            /* Mover la botonera arriba para evitar la botonera del sistema en iPhone */
             .controls {
                 position: fixed;
                 left: 0;
                 right: 0;
-                bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
-                padding: 12px 20px;
-                z-index: 60;
+                top: calc(env(safe-area-inset-top, 0px) + 12px);
+                padding: 8px 16px;
+                z-index: 90;
                 justify-content: center;
                 width: 100%;
                 box-sizing: border-box;
+                display: flex;
+                gap: 12px;
+                pointer-events: auto;
             }
             .controls .nav-btn { max-width: 150px; }
 
-            .card-viewport { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 112px); }
+            /* Dejar espacio superior para la botonera y evitar que el contenido quede atrás */
+            .card-viewport { padding-top: calc(env(safe-area-inset-top, 0px) + 80px); padding-bottom: 24px; }
 
             /* No ocupar la ventana completa en vertical para dejar espacio sobre la botonera del sistema */
             html, body, #main { min-height: calc(100vh - env(safe-area-inset-bottom, 0px)); }
