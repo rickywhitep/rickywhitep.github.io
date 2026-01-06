@@ -206,14 +206,27 @@
     let showingAnswer = false;
 
     async function loadTree() {
-        const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/data`;
-        const res = await fetch(url);
-        const files = await res.json();
         const treeElement = document.getElementById('tree');
         treeElement.innerHTML = '';
+        await loadTreeRecursive('data', treeElement);
+    }
+
+    async function loadTreeRecursive(path, parentElement) {
+        const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`;
+        const res = await fetch(url);
+        const files = await res.json();
 
         for (const file of files) {
-            if (file.name.endsWith('.csv')) {
+            if (file.type === 'dir') {
+                // Es una carpeta: crear título y cargar recursivamente
+                const folderTitle = document.createElement('div');
+                folderTitle.className = 'folder-title';
+                folderTitle.innerText = file.name.replace(/_/g, ' ').toUpperCase();
+                parentElement.appendChild(folderTitle);
+
+                await loadTreeRecursive(file.path, parentElement);
+            } else if (file.name.endsWith('.csv')) {
+                // Es un archivo CSV
                 const fileName = file.name.replace('.csv', '');
                 const div = document.createElement('div');
                 div.className = 'csv-link';
@@ -230,8 +243,8 @@
                     if (window.innerWidth <= 900) document.body.classList.add('viewing-card');
                 };
 
-                treeElement.appendChild(div);
-                treeElement.appendChild(qList);
+                parentElement.appendChild(div);
+                parentElement.appendChild(qList);
             }
         }
     }
