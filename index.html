@@ -158,10 +158,21 @@
         /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
             #sidebar { width: 100%; position: absolute; height: 100%; }
-            #btnBack { display: block; }
+            /* Mostrar el botón "Temario" solo cuando estamos viendo una tarjeta (evita tapar el árbol) */
+            #btnBack { display: none; }
+            body.viewing-card #btnBack { display: block; z-index: 40; }
+
             body.viewing-card #sidebar { transform: translateX(-100%); }
             #anverso { font-size: 1.5rem; }
             #reverso { font-size: 1.3rem; }
+
+            /* Evitar que la botonera inferior del iPhone cubra los controles.
+               Ajustamos padding usando la variable de entorno safe-area-inset-bottom. */
+            .controls { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); z-index: 35; }
+            .card-viewport { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 72px); }
+
+            /* No ocupar la ventana completa en vertical para dejar espacio sobre la botonera del sistema */
+            html, body, #main { min-height: calc(100vh - env(safe-area-inset-bottom, 0px)); }
         }
     </style>
 </head>
