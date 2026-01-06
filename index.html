@@ -185,6 +185,26 @@
             }
             .controls .nav-btn { max-width: 150px; }
 
+            /* Previous / Next: moved to bottom above system bar */
+            .controls .nav-prev,
+            .controls .nav-next {
+                position: fixed;
+                bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+                padding: 12px 18px;
+                z-index: 95;
+                width: 120px;
+                max-width: 44%;
+                border-radius: 12px;
+                background: #111;
+                color: #fff;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            }
+            .controls .nav-prev { left: 12px; }
+            .controls .nav-next { right: 12px; }
+
+            /* Ensure topbar keeps only the action button centered */
+            .controls { align-items: center; }
+
             /* Dejar espacio superior para la botonera y evitar que el contenido quede atrás */
             .card-viewport { padding-top: calc(env(safe-area-inset-top, 0px) + 80px); padding-bottom: 24px; }
 
@@ -215,9 +235,9 @@
             </div>
         </div>
         <div class="controls">
-            <button class="nav-btn" onclick="prevCard()">Ant.</button>
+            <button class="nav-btn nav-prev" onclick="prevCard()">Ant.</button>
             <button class="nav-btn" id="btnAction" onclick="toggleCard()">MOSTRAR</button>
-            <button class="nav-btn" onclick="nextCard()">Sig.</button>
+            <button class="nav-btn nav-next" onclick="nextCard()">Sig.</button>
         </div>
     </div>
 
