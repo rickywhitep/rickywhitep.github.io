@@ -62,11 +62,28 @@
             font-size: 0.7rem;
             color: var(--accent);
             text-transform: uppercase;
-            padding: 15px 10px 5px 5px;
+            padding: 8px 5px;
             letter-spacing: 1.5px;
             font-weight: 800;
-            opacity: 0.8;
+            opacity: 0.95;
         }
+
+        .folder-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 6px;
+            cursor: pointer;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            user-select: none;
+        }
+        .folder-header:hover { background: #0f0f0f; }
+        .folder-header .left { display:flex; align-items:center; gap:8px; }
+        .caret { display:inline-block; transition: transform 0.15s; font-size: 0.95rem; color: var(--text-dim); }
+        .folder-header.open .caret { transform: rotate(90deg); color: var(--accent); }
+        .folder-children { padding-left: 10px; display: none; margin-bottom: 8px; border-left: 1px solid var(--border); }
+        
 
         .csv-link {
             padding: 14px 10px;
@@ -194,28 +211,61 @@
 
             for (const item of items) {
                 if (item.type === 'dir') {
-                    const folderTitle = document.createElement('div');
-                    folderTitle.className = 'folder-title';
-                    folderTitle.innerText = `📂 ${item.name.toUpperCase()}`;
-                    parentElement.appendChild(folderTitle);
+                    // Contenedor de la carpeta con header plegable
+                    const folderGroup = document.createElement('div');
+                    folderGroup.className = 'folder-group';
 
-                    const subGroup = document.createElement('div');
-                    subGroup.style.paddingLeft = "10px";
-                    parentElement.appendChild(subGroup);
-                    await loadTreeRecursive(item.path, subGroup);
+                    const header = document.createElement('div');
+                    header.className = 'folder-header';
+                    header.innerHTML = `<div class="left"><span class="caret">▸</span><span class="folder-title"> ${item.name.toUpperCase()}</span></div>`;
+
+                    const children = document.createElement('div');
+                    children.className = 'folder-children';
+
+                    header.onclick = () => {
+                        const isOpen = header.classList.toggle('open');
+                        children.style.display = isOpen ? 'block' : 'none';
+                        const caret = header.querySelector('.caret');
+                        if (caret) caret.textContent = isOpen ? '▾' : '▸';
+                    };
+
+                    folderGroup.appendChild(header);
+                    folderGroup.appendChild(children);
+                    parentElement.appendChild(folderGroup);
+
+                    await loadTreeRecursive(item.path, children);
                 } else if (item.name.endsWith('.csv')) {
                     const div = document.createElement('div');
                     div.className = 'csv-link';
-                    div.innerHTML = `📄 ${item.name.replace('.csv', '')}`;
+                    div.innerHTML = `<span>📄 ${item.name.replace('.csv', '')}</span>`;
                     
                     const qList = document.createElement('div');
                     qList.className = 'q-list';
                     qList.id = 'list-' + item.sha;
+                    qList.style.display = 'none';
 
-                    div.onclick = async () => {
-                        document.querySelectorAll('.csv-link').forEach(l => l.classList.remove('active'));
-                        div.classList.add('active');
-                        await loadCSV(item.download_url, qList.id);
+                    div.onclick = async (e) => {
+                        e.stopPropagation();
+                        const isActive = div.classList.contains('active');
+
+                        // Cerrar otros CSV (mantener uno abierto a la vez)
+                        document.querySelectorAll('.csv-link').forEach(l => {
+                            if (l !== div) {
+                                l.classList.remove('active');
+                                const sib = l.nextElementSibling;
+                                if (sib && sib.classList.contains('q-list')) sib.style.display = 'none';
+                            }
+                        });
+
+                        if (isActive) {
+                            div.classList.remove('active');
+                            qList.style.display = 'none';
+                            if (window.innerWidth <= 900) document.body.classList.remove('viewing-card');
+                        } else {
+                            div.classList.add('active');
+                            qList.style.display = 'block';
+                            await loadCSV(item.download_url, qList.id);
+                        }
                     };
 
                     parentElement.appendChild(div);
