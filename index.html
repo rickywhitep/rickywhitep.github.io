@@ -26,7 +26,7 @@
         body {
             background-color: var(--bg);
             color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
             display: flex;
             height: 100vh;
@@ -34,7 +34,6 @@
             overflow: hidden;
         }
 
-        /* --- SIDEBAR / ÁRBOL --- */
         #sidebar {
             width: 320px;
             background-color: var(--sidebar-bg);
@@ -50,24 +49,17 @@
             border-bottom: 1px solid var(--border);
             font-weight: bold;
             color: var(--accent);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
-        #tree {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 10px;
-        }
+        #tree { flex-grow: 1; overflow-y: auto; padding: 10px; }
 
-        .folder-group { margin-bottom: 15px; }
         .folder-title {
             font-size: 0.75rem;
-            color: var(--text-dim);
+            color: var(--accent);
             text-transform: uppercase;
-            padding: 5px 10px;
+            padding: 15px 10px 5px 10px;
             letter-spacing: 1px;
+            font-weight: bold;
         }
 
         .csv-link {
@@ -82,115 +74,60 @@
         .csv-link:hover { background: #1a1a1a; }
         .csv-link.active { background: #00ffcc15; color: var(--accent); border: 1px solid #00ffcc33; }
 
-        /* Lista de preguntas dentro del árbol */
-        .q-list {
-            margin-left: 15px;
-            border-left: 1px solid #222;
-            display: none; /* Se muestra cuando el bloque está activo */
-        }
+        .q-list { margin-left: 15px; border-left: 1px solid #222; display: none; }
         .csv-link.active + .q-list { display: block; }
 
-        .q-item {
-            padding: 8px 15px;
-            font-size: 0.85rem;
-            color: #666;
-            cursor: pointer;
-        }
+        .q-item { padding: 8px 15px; font-size: 0.85rem; color: #666; cursor: pointer; }
         .q-item:hover { color: #fff; }
-        .q-item.visto { color: var(--accent); }
+        .q-item.visto { color: var(--accent); font-weight: bold; }
         .q-item.visto::after { content: " ✔"; font-size: 0.7rem; }
 
-        /* --- ÁREA PRINCIPAL --- */
-        #main {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
+        #main { flex-grow: 1; display: flex; flex-direction: column; position: relative; }
 
-        /* Botón Volver (solo móvil) */
         #btnBack {
-            display: none;
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: #222;
-            border: none;
-            color: #fff;
-            padding: 10px 15px;
-            border-radius: 8px;
-            z-index: 10;
+            display: none; position: absolute; top: 15px; left: 15px;
+            background: #222; border: none; color: #fff; padding: 10px 15px;
+            border-radius: 8px; z-index: 10; cursor: pointer;
         }
 
         .card-viewport {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            text-align: center;
+            flex-grow: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; padding: 40px; text-align: center;
         }
 
         .card-container { max-width: 800px; width: 100%; }
-        #anverso { font-size: 2.2rem; line-height: 1.4; margin-bottom: 40px; }
-        #reverso { font-size: 1.8rem; color: var(--accent); border-top: 1px dashed #333; padding-top: 30px; display: none; }
+        #anverso { font-size: 2rem; line-height: 1.4; margin-bottom: 40px; }
+        #reverso { font-size: 1.7rem; color: var(--accent); border-top: 1px dashed #333; padding-top: 30px; display: none; }
 
-        /* --- CONTROLES --- */
-        .controls {
-            padding: 30px;
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            background: rgba(0,0,0,0.5);
-        }
+        .controls { padding: 30px; display: flex; gap: 15px; justify-content: center; background: rgba(0,0,0,0.5); }
         button.nav-btn {
-            background: #151515;
-            color: #fff;
-            border: 1px solid #333;
-            padding: 20px 30px;
-            border-radius: 12px;
-            font-size: 1rem;
-            cursor: pointer;
-            min-width: 120px;
+            background: #151515; color: #fff; border: 1px solid #333;
+            padding: 20px 30px; border-radius: 12px; font-size: 1rem; cursor: pointer; min-width: 120px;
         }
         #btnAction { background: var(--accent); color: #000; font-weight: bold; border: none; }
 
-        /* --- RESPONSIVE (Móvil y Tablet Vertical) --- */
-        /* Detectamos si el ancho es menor a 900px (típico de tablets verticales y móviles) */
         @media (max-width: 900px) {
             #sidebar { width: 100%; position: absolute; height: 100%; z-index: 20; }
-            #main { width: 100%; }
             #btnBack { display: block; }
-            
-            /* Estado: Viendo tarjeta */
             body.viewing-card #sidebar { transform: translateX(-100%); }
-            body.viewing-card #main { transform: translateX(0); }
-            
-            #anverso { font-size: 1.7rem; }
-            #reverso { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body class="show-menu">
 
     <div id="sidebar">
-        <div class="sidebar-header">
-            <span>RICKY CARDS</span>
-        </div>
-        <div id="tree">Cargando datos...</div>
+        <div class="sidebar-header"><span>RICKY CARDS</span></div>
+        <div id="tree">Cargando temario...</div>
     </div>
 
     <div id="main">
         <button id="btnBack" onclick="goBack()">⬅ Temario</button>
-        
         <div class="card-viewport">
             <div class="card-container">
-                <div id="anverso">Selecciona un tema</div>
+                <div id="anverso">Selecciona un tema en el menú</div>
                 <div id="reverso"></div>
             </div>
         </div>
-
         <div class="controls">
             <button class="nav-btn" onclick="prevCard()">Ant.</button>
             <button class="nav-btn" id="btnAction" onclick="toggleCard()">MOSTRAR</button>
@@ -212,41 +149,47 @@
     }
 
     async function loadTreeRecursive(path, parentElement) {
-        const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`;
-        const res = await fetch(url);
-        const files = await res.json();
+        try {
+            const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`;
+            const res = await fetch(url);
+            const items = await res.json();
 
-        for (const file of files) {
-            if (file.type === 'dir') {
-                // Es una carpeta: crear título y cargar recursivamente
-                const folderTitle = document.createElement('div');
-                folderTitle.className = 'folder-title';
-                folderTitle.innerText = file.name.replace(/_/g, ' ').toUpperCase();
-                parentElement.appendChild(folderTitle);
+            // Ordenar: Carpetas primero, luego archivos
+            items.sort((a, b) => (b.type === 'dir') - (a.type === 'dir'));
 
-                await loadTreeRecursive(file.path, parentElement);
-            } else if (file.name.endsWith('.csv')) {
-                // Es un archivo CSV
-                const fileName = file.name.replace('.csv', '');
-                const div = document.createElement('div');
-                div.className = 'csv-link';
-                div.innerHTML = `<span>📄 ${fileName}</span>`;
-                
-                const qList = document.createElement('div');
-                qList.className = 'q-list';
-                qList.id = 'list-' + file.sha;
+            for (const item of items) {
+                if (item.type === 'dir') {
+                    const folderTitle = document.createElement('div');
+                    folderTitle.className = 'folder-title';
+                    folderTitle.innerText = `📂 ${item.name.toUpperCase()}`;
+                    parentElement.appendChild(folderTitle);
 
-                div.onclick = async () => {
-                    document.querySelectorAll('.csv-link').forEach(l => l.classList.remove('active'));
-                    div.classList.add('active');
-                    await loadCSV(file.download_url, qList.id);
-                    if (window.innerWidth <= 900) document.body.classList.add('viewing-card');
-                };
+                    const subGroup = document.createElement('div');
+                    subGroup.style.paddingLeft = "10px";
+                    parentElement.appendChild(subGroup);
+                    
+                    await loadTreeRecursive(item.path, subGroup);
+                } else if (item.name.endsWith('.csv')) {
+                    const div = document.createElement('div');
+                    div.className = 'csv-link';
+                    div.innerHTML = `<span>📄 ${item.name.replace('.csv', '')}</span>`;
+                    
+                    const qList = document.createElement('div');
+                    qList.className = 'q-list';
+                    qList.id = 'list-' + item.sha;
 
-                parentElement.appendChild(div);
-                parentElement.appendChild(qList);
+                    div.onclick = async () => {
+                        document.querySelectorAll('.csv-link').forEach(l => l.classList.remove('active'));
+                        div.classList.add('active');
+                        await loadCSV(item.download_url, qList.id);
+                        if (window.innerWidth <= 900) document.body.classList.add('viewing-card');
+                    };
+
+                    parentElement.appendChild(div);
+                    parentElement.appendChild(qList);
+                }
             }
-        }
+        } catch (e) { console.error("Error cargando rama:", e); }
     }
 
     async function loadCSV(url, listId) {
@@ -254,10 +197,9 @@
         const data = await res.text();
         currentCards = data.split('\n').filter(l => l.includes(';')).map(l => {
             const p = l.split(';');
-            return { a: p[0], r: p[1] };
+            return { a: p[0].trim(), r: p[1].trim() };
         });
 
-        // Poblar lista de preguntas en el árbol
         const listContainer = document.getElementById(listId);
         listContainer.innerHTML = '';
         currentCards.forEach((c, idx) => {
@@ -271,7 +213,6 @@
             };
             listContainer.appendChild(item);
         });
-
         currentIndex = 0;
         showCard();
     }
@@ -286,12 +227,11 @@
         document.getElementById('anverso').innerHTML = currentCards[currentIndex].a;
         document.getElementById('reverso').innerHTML = currentCards[currentIndex].r;
         
-        // Marcar como visto en el árbol visualmente
         const activeList = document.querySelector('.csv-link.active + .q-list');
         if (activeList) {
+            Array.from(activeList.children).forEach(c => c.classList.remove('visto'));
             activeList.children[currentIndex].classList.add('visto');
         }
-
         if (window.MathJax) MathJax.typesetPromise();
     }
 
@@ -315,9 +255,7 @@
         if (currentIndex > 0) { currentIndex--; showCard(); }
     }
 
-    function goBack() {
-        document.body.classList.remove('viewing-card');
-    }
+    function goBack() { document.body.classList.remove('viewing-card'); }
 
     window.onload = loadTree;
 </script>
