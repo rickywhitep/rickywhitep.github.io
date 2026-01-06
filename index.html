@@ -160,16 +160,29 @@
             #sidebar { width: 100%; position: absolute; height: 100%; }
             /* Mostrar el botón "Temario" solo cuando estamos viendo una tarjeta (evita tapar el árbol) */
             #btnBack { display: none; }
-            body.viewing-card #btnBack { display: block; z-index: 40; }
+            body.viewing-card #btnBack { display: block; z-index: 60; }
 
-            body.viewing-card #sidebar { transform: translateX(-100%); }
+            /* Cuando el sidebar está oculto, evitar que capture eventos táctiles */
+            body.viewing-card #sidebar { transform: translateX(-100%); pointer-events: none; }
+
             #anverso { font-size: 1.5rem; }
             #reverso { font-size: 1.3rem; }
 
-            /* Evitar que la botonera inferior del iPhone cubra los controles.
-               Ajustamos padding usando la variable de entorno safe-area-inset-bottom. */
-            .controls { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); z-index: 35; }
-            .card-viewport { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 72px); }
+            /* Mantener la botonera siempre accesible sobre la UI del iPhone */
+            .controls {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+                padding: 12px 20px;
+                z-index: 60;
+                justify-content: center;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .controls .nav-btn { max-width: 150px; }
+
+            .card-viewport { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 112px); }
 
             /* No ocupar la ventana completa en vertical para dejar espacio sobre la botonera del sistema */
             html, body, #main { min-height: calc(100vh - env(safe-area-inset-bottom, 0px)); }
