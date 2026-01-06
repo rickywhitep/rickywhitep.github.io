@@ -192,6 +192,12 @@
             html, body, #main { min-height: calc(100vh - env(safe-area-inset-bottom, 0px)); }
         }
     </style>
+
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 </head>
 <body class="show-menu">
 
@@ -221,6 +227,52 @@
     let currentCards = [];
     let currentIndex = 0;
     let showingAnswer = false;
+    let currentKey = null; // key for progress (e.g. file path)
+
+    // ----- IndexedDB helpers (very small wrapper) -----
+    function openDB() {
+        return new Promise((resolve, reject) => {
+            const req = indexedDB.open('ricky-cards', 1);
+            req.onupgradeneeded = () => {
+                const db = req.result;
+                if (!db.objectStoreNames.contains('progress')) db.createObjectStore('progress', { keyPath: 'file' });
+            };
+            req.onsuccess = () => resolve(req.result);
+            req.onerror = () => reject(req.error);
+        });
+    }
+
+    async function saveProgress(file, data) {
+        if (!file) return;
+        try {
+            const db = await openDB();
+            const tx = db.transaction('progress', 'readwrite');
+            const store = tx.objectStore('progress');
+            const record = Object.assign({ file, updated_at: new Date().toISOString() }, data);
+            store.put(record);
+            return tx.complete;
+        } catch (e) { console.warn('saveProgress failed', e); }
+    }
+
+    async function loadProgress(file) {
+        if (!file) return null;
+        try {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction('progress', 'readonly');
+                const store = tx.objectStore('progress');
+                const req = store.get(file);
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => reject(req.error);
+            });
+        } catch (e) { console.warn('loadProgress failed', e); return null; }
+    }
+
+    function getSeenArray() {
+        const activeList = document.querySelector('.csv-link.active + .q-list');
+        if (!activeList) return [];
+        return Array.from(activeList.children).map((c, i) => c.classList.contains('visto') ? i : -1).filter(i => i >= 0);
+    }
 
     async function loadTree() {
         const treeElement = document.getElementById('tree');
@@ -292,7 +344,7 @@
                         } else {
                             div.classList.add('active');
                             qList.style.display = 'block';
-                            await loadCSV(item.download_url, qList.id);
+                            await loadCSV(item.download_url, qList.id, item.path);
                         }
                     };
 
@@ -303,7 +355,8 @@
         } catch (e) { console.error("Error API:", e); }
     }
 
-    async function loadCSV(url, listId) {
+    async function loadCSV(url, listId, key) {
+        currentKey = key || null;
         const res = await fetch(url);
         const data = await res.text();
         currentCards = data.split('\n').filter(l => l.includes(';')).map(l => {
@@ -325,7 +378,20 @@
             };
             listContainer.appendChild(item);
         });
-        currentIndex = 0;
+
+        // Restore saved progress if available
+        const saved = await loadProgress(key);
+        if (saved) {
+            if (typeof saved.index === 'number') currentIndex = saved.index;
+            if (Array.isArray(saved.seen)) {
+                saved.seen.forEach(i => {
+                    if (listContainer.children[i]) listContainer.children[i].classList.add('visto');
+                });
+            }
+        } else {
+            currentIndex = 0;
+        }
+
         showCard();
     }
 
@@ -344,6 +410,8 @@
             Array.from(activeList.children).forEach(c => c.classList.remove('visto'));
             if(activeList.children[currentIndex]) activeList.children[currentIndex].classList.add('visto');
         }
+        // Save progress after showing card
+        saveProgress(currentKey, { index: currentIndex, seen: getSeenArray() });
         if (window.MathJax) MathJax.typesetPromise();
     }
 
@@ -368,6 +436,11 @@
     }
 
     function goBack() { document.body.classList.remove('viewing-card'); }
+
+    // Register service worker for PWA
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js').then(() => console.log('Service Worker registered')).catch(console.error);
+    }
 
     window.onload = loadTree;
 </script>
