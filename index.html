@@ -174,7 +174,7 @@
                 left: 0;
                 right: 0;
                 bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
-                padding: 8px 48px;
+                padding: 8px 16px;
                 z-index: 100;
                 width: 100%;
                 box-sizing: border-box;
@@ -186,12 +186,28 @@
                 background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.5));
                 backdrop-filter: blur(6px);
             }
-            .controls .nav-btn { max-width: 160px; padding: 12px 18px; border-radius: 12px; flex: 0 0 auto; }
+            .controls .nav-btn { padding: 10px 14px; border-radius: 10px; font-size: 0.95rem; }
 
-            /* Prev/Next anchored to sides but still visually above the system bar */
-            .controls .nav-prev { position: absolute; left: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); z-index: 101; }
-            .controls .nav-next { position: absolute; right: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); z-index: 101; }
-            .controls #btnAction { margin: 0 auto; }
+            /* Position prev/next at midline (vertical center) of controls and keep them on sides */
+            .controls .nav-prev, .controls .nav-next {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 101;
+                width: 110px;
+                max-width: 40%;
+            }
+            .controls .nav-prev { left: 12px; }
+            .controls .nav-next { right: 12px; }
+
+            /* Action button centered and reduced size */
+            .controls #btnAction {
+                margin: 0 auto;
+                padding: 8px 14px;
+                font-size: 0.95rem;
+                max-width: 140px;
+                border-radius: 10px;
+            }
 
             /* Dejar espacio inferior para la botonera y evitar que el contenido quede atrás */
             .card-viewport { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 84px); padding-top: calc(env(safe-area-inset-top, 0px) + 12px); }
