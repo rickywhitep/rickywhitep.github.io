@@ -1,8 +1,8 @@
 [Tema 1 General] Diferencia Principal;**Maxima** es para Cálculo Simbólico (mantiene expresiones exactas como $\sqrt{2}$ o $\pi$). **Scilab** es para Cálculo Numérico (trabaja con aproximaciones decimales en coma flotante).
-[Tema 1 Sintaxis] Asignación de variables;**Maxima:** Usa dos puntos `$ : $` (Ej: `a : 5`). **Scilab:** Usa el igual `$ = $` (Ej: `a = 5`).
-[Tema 1 Sintaxis] Definición de funciones;**Maxima:** Usa dos puntos e igual `$ := $` (Ej: `f(x) := x^2`). **Scilab:** Usa `function y=f(x) ... endfunction` (o `deff` para inline).
-[Tema 1 Sintaxis] Finalizar sentencia (Mostrar salida);**Maxima:** Punto y coma `$ ; $`. **Scilab:** Coma `$ , $` o simplemente intro (no poner nada).
-[Tema 1 Sintaxis] Finalizar sentencia (Ocultar salida);**Maxima:** Dólar `$ $ $`. **Scilab:** Punto y coma `$ ; $`.
+[Tema 1 Sintaxis] Asignación de variables;**Maxima:** Usa dos puntos $:$. (Ej: `a : 5`). **Scilab:** Usa el igual $=$ (Ej: `a = 5`).
+[Tema 1 Sintaxis] Definición de funciones;**Maxima:** Usa dos puntos e igual `$:=$` (Ej: `f(x) := x^2`). **Scilab:** Usa `function y=f(x) ... endfunction` (o `deff` para inline).
+[Tema 1 Sintaxis] Finalizar sentencia (Mostrar salida);**Maxima:** Punto y coma $;$. **Scilab:** Coma $,$ o simplemente intro (no poner nada).
+[Tema 1 Sintaxis] Finalizar sentencia (Ocultar salida);**Maxima:** Dólar `$$$`. **Scilab:** Punto y coma $;$. 
 [Tema 1 Constantes] Número Pi;**Maxima:** `%pi`. **Scilab:** `%pi`.
 [Tema 1 Constantes] Unidad Imaginaria;**Maxima:** `%i`. **Scilab:** `%i`.
 [Tema 1 Constantes] Número e (Euler);**Maxima:** `%e`. **Scilab:** `%e`.
