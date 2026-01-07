@@ -313,7 +313,7 @@
         // First, extract backtick code spans and replace with placeholders
         const codePlaceholders = [];
         let placeholderIndex = 0;
-        const replaced = original.replace(/`([^`]+?)`/g, (m, inside) => {
+        let replaced = original.replace(/`([^`]+?)`/g, (m, inside) => {
             const isMath = /^\s*\$+[\s\S]*\$+\s*$/.test(inside);
             if (isMath) {
                 // Preserve math content (do not escape) so MathJax can render it
@@ -328,6 +328,14 @@
                 placeholderIndex++;
                 return token;
             }
+        });
+
+        // Also preserve raw $...$ math outside backticks (e.g. "$ ; $") by replacing with placeholders
+        replaced = replaced.replace(/\$\s*([^$]+?)\s*\$/g, (m, inside) => {
+            const token = `@@MATH${placeholderIndex}@@`;
+            codePlaceholders.push({ token, type: 'math', content: `$${inside.trim()}$` });
+            placeholderIndex++;
+            return token;
         });
 
         // Escape the rest of the text
