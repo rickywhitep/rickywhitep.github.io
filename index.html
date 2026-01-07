@@ -188,11 +188,10 @@
             }
             .controls .nav-btn { padding: 10px 14px; border-radius: 10px; font-size: 0.95rem; }
 
-            /* Position prev/next at midline (vertical center) of controls and keep them on sides */
+            /* Prev/Next anchored to bottom and aligned with the action button */
             .controls .nav-prev, .controls .nav-next {
                 position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
+                bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
                 z-index: 101;
                 width: 110px;
                 max-width: 40%;
@@ -200,12 +199,16 @@
             .controls .nav-prev { left: 12px; }
             .controls .nav-next { right: 12px; }
 
-            /* Action button centered and reduced size */
+            /* Action button centered at bottom between prev/next */
             .controls #btnAction {
-                margin: 0 auto;
-                padding: 8px 14px;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+                z-index: 101;
+                padding: 8px 12px;
                 font-size: 0.95rem;
-                max-width: 140px;
+                max-width: 120px;
                 border-radius: 10px;
             }
 
@@ -296,6 +299,23 @@
         const activeList = document.querySelector('.csv-link.active + .q-list');
         if (!activeList) return [];
         return Array.from(activeList.children).map((c, i) => c.classList.contains('visto') ? i : -1).filter(i => i >= 0);
+    }
+
+    // Simple inline Markdown renderer (supports **bold**, *italic* and `code`)
+    function escapeHTML(text) {
+        return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function renderInlineMarkdown(text) {
+        if (!text) return '';
+        const esc = escapeHTML(text);
+        // Bold **text** (non-greedy)
+        const withBold = esc.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        // Italic *text* (avoid interfering with bold by running after)
+        const withItalic = withBold.replace(/\*(.+?)\*/g, '<em>$1</em>');
+        // Inline code `code`
+        const withCode = withItalic.replace(/`(.+?)`/g, '<code>$1</code>');
+        return withCode;
     }
 
     async function loadTree() {
@@ -426,8 +446,8 @@
         document.getElementById('btnAction').innerText = "MOSTRAR";
         document.getElementById('btnAction').style.background = "#00ffcc";
         
-        document.getElementById('anverso').innerHTML = currentCards[currentIndex].a;
-        document.getElementById('reverso').innerHTML = currentCards[currentIndex].r;
+        document.getElementById('anverso').innerHTML = renderInlineMarkdown(currentCards[currentIndex].a);
+        document.getElementById('reverso').innerHTML = renderInlineMarkdown(currentCards[currentIndex].r);
         
         const activeList = document.querySelector('.csv-link.active + .q-list');
         if (activeList) {
