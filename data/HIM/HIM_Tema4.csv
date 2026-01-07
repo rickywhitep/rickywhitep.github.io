@@ -1,0 +1,24 @@
+[Tema 4 Scilab] Extensión de Scripts;Archivos `.sce` (ejecutables generales) y `.sci` (bibliotecas de funciones).
+[Tema 4 Scilab] Comentarios;Se usa la doble barra `//`. (Ej: `// Esto es un comentario`).
+[Tema 4 Maxima] Comentarios;Se encierran entre `/*` y `*/`. (Ej: `/* Comentario */`).
+[Tema 4 Scilab] Condicional IF;`if condicion then ... else ... end`.
+[Tema 4 Maxima] Condicional IF;`if condicion then ... else ...` (No lleva 'end', es una expresión que devuelve valor).
+[Tema 4 Scilab] Bucle FOR;`for variable = inicio : paso : fin ... end`. (Ej: `for i=1:2:10 ... end`).
+[Tema 4 Maxima] Bucle FOR (Rango);`for variable : inicio step paso thru fin do ...`.
+[Tema 4 Maxima] Bucle FOR (Lista);`for variable in lista do ...`.
+[Tema 4 Scilab] Bucle WHILE;`while condicion ... end`.
+[Tema 4 Maxima] Bucle WHILE;`while condicion do ...`.
+[Tema 4 Scilab] Definir Función;`function [salida] = nombre(entrada) ... endfunction`.
+[Tema 4 Maxima] Definir Función (Bloque);`nombre(args) := block([variables_locales], ... return(valor) )`.
+[Tema 4 Scilab] Resolver Sist. Lineal ($Ax=b$);Operador barra invertida `\`. Solución: `x = A \ b` (Método numérico, Gauss/LU).
+[Tema 4 Maxima] Resolver Sist. Lineal;`linsolve([ec1, ec2], [var1, var2])`. (Solución simbólica exacta).
+[Tema 4 Scilab] Resolver Ecuación No Lineal;`fsolve(punto_inicial, funcion)`. (Numérico).
+[Tema 4 Maxima] Raíz en intervalo (Numérico);`find_root(funcion, x, a, b)`. Busca raíz numérica en $[a,b]$ (Bisección/Brent).
+[Tema 4 Maxima] Método de Newton (Simbólico/Num);`mnewton([ecs], [vars], [estimacion])`. (Requiere cargar paquete: `load(mnewton)`).
+[Tema 4 Scilab] Ecuación Diferencial (ODE);`ode(y_inicial, t_inicial, t_vector, funcion_f)`. Resuelve $y' = f(t,y)$.
+[Tema 4 Maxima] Ecuación Diferencial (General);`ode2(ecuacion, y, x)`. Resuelve la EDO simbólicamente.
+[Tema 4 Maxima] Condiciones Iniciales (Orden 1);`ic1(solucion_general, x=val, y=val)`. Fija la constante de integración para EDO de orden 1.
+[Tema 4 Maxima] Condiciones Iniciales (Orden 2);`ic2(solucion_general, x=val, y=val, diff(y,x)=val)`. Para EDO de orden 2.
+[Tema 4 Maxima] EDO por Laplace;`desolve(ecuacion, y(x))`. Resuelve usando Transformada de Laplace. (Requiere definir ecuaciones con `diff`).
+[Tema 4 Scilab] Optimización (Mínimo);`fminsearch(funcion, punto_inicial)`. Busca el mínimo local de una función sin restricciones.
+[Tema 4 Scilab] Configurar Optimización;`optimset('parametro', valor)`. Ej: `optimset('TolX', 1e-6)`.

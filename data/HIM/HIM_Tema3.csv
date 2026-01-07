@@ -1,0 +1,23 @@
+[Tema 3 Maxima] Cálculo de Límites;`limit(f(x), x, punto)`. Calcula $\lim_{x \to p} f(x)$.
+[Tema 3 Maxima] Límites Laterales;`limit(f(x), x, punto, plus)` (derecha) o `limit(f(x), x, punto, minus)` (izquierda).
+[Tema 3 Maxima] Límites en el Infinito;Usar `inf` (infinito positivo) o `minf` (infinito negativo) como punto.
+[Tema 3 Scilab] Cálculo de Límites;No tiene función simbólica. Se aproxima numéricamente evaluando $f(x)$ muy cerca del punto (ej: $x + 10^{-6}$).
+[Tema 3 Maxima] Derivada Primera;`diff(f(x), x)`. Calcula $\frac{df}{dx}$.
+[Tema 3 Maxima] Derivada de Orden n;`diff(f(x), x, n)`. Calcula $\frac{d^n f}{dx^n}$.
+[Tema 3 Scilab] Derivada Numérica;`numderivative(f, punto)`. Aproximación numérica en un punto específico.
+[Tema 3 Maxima] Integral Indefinida;`integrate(f(x), x)`. Calcula la primitiva $\int f(x) dx$.
+[Tema 3 Maxima] Integral Definida;`integrate(f(x), x, a, b)`. Calcula $\int_a^b f(x) dx$.
+[Tema 3 Maxima] Integral Definida (Infinito);Usar `inf` o `minf` como límites de integración.
+[Tema 3 Scilab] Integral Definida Numérica;`intg(a, b, f)`. Calcula numéricamente $\int_a^b f(x) dx$. Requiere definir la función `f` previamente.
+[Tema 3 Scilab] Integral con tolerancia;`integrate(f(x), 'x', a, b, tol)`. (Nota: sintaxis variable según versión, `intg` es más estándar para funciones definidas).
+[Tema 3 Maxima] Factorización de Polinomios;`factor(polinomio)`. Factoriza sobre los racionales.
+[Tema 3 Maxima] Factorización Compleja (Gaussiana);`gfactor(polinomio)`. Factoriza sobre el campo de los complejos (ej: $x^2+1 \to (x-i)(x+i)$).
+[Tema 3 Maxima] Simplificación Racional;`ratsimp(expr)`. Simplifica expresiones racionales (fracciones algebraicas).
+[Tema 3 Maxima] Simplificación Completa;`fullratsimp(expr)`. Aplica `ratsimp` repetidamente y transformaciones algebraicas.
+[Tema 3 Maxima] Simplificación de Radicales/Log;`radcan(expr)`. Potente para expresiones con logaritmos, exponenciales y raíces.
+[Tema 3 Maxima] Desarrollo de Taylor;`taylor(f(x), x, punto, orden)`. Obtiene el polinomio de Taylor de grado `orden` alrededor de `punto`.
+[Tema 3 Maxima] Truncar Series (Taylor);`trunc(expr)`. Elimina el término de error $O(x^n)$ para trabajar con el polinomio limpio.
+[Tema 3 Maxima] Expansión Trigonométrica;`trigexpand(expr)`. Convierte argumentos suma/multiplo en simples (ej: $\sin(2x) \to 2\sin(x)\cos(x)$).
+[Tema 3 Maxima] Reducción Trigonométrica;`trigreduce(expr)`. Convierte productos/potencias en sumas (linealización). (Ej: $\sin^2(x) \to \frac{1-\cos(2x)}{2}$).
+[Tema 3 Maxima] Simplificación Trigonométrica;`trigsimp(expr)`. Aplica identidades (como $\sin^2 + \cos^2 = 1$) para simplificar la expresión.
+[Tema 3 Maxima] Racionalización Trigonométrica;`trigrat(expr)`. Estandariza una expresión trigonométrica racional para facilitar su simplificación.
