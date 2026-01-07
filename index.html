@@ -308,14 +308,28 @@
 
     function renderInlineMarkdown(text) {
         if (!text) return '';
-        const esc = escapeHTML(text);
-        // Bold **text** (non-greedy)
-        const withBold = esc.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-        // Italic *text* (avoid interfering with bold by running after)
-        const withItalic = withBold.replace(/\*(.+?)\*/g, '<em>$1</em>');
-        // Inline code `code`
-        const withCode = withItalic.replace(/`(.+?)`/g, '<code>$1</code>');
-        return withCode;
+        const original = String(text);
+        const esc = escapeHTML(original);
+
+        // Prefer robust patterns and sensible ordering: code, bold, italic
+        let out = esc.replace(/`([^`]+?)`/g, '<code>$1</code>');
+        out = out.replace(/\*\*(?=\S)([\s\S]*?\S)\*\*/g, '<strong>$1</strong>');
+        out = out.replace(/\*(?=\S)([\s\S]*?\S)\*/g, '<em>$1</em>');
+
+        // Fallback for strange cases: try simpler greedy replacements if markers remain
+        if (out.includes('**')) {
+            console.warn('renderInlineMarkdown: fallback bold for', original);
+            out = out.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        }
+        if (out.includes('*')) {
+            // avoid replacing asterisks that are part of HTML tags
+            if (out.match(/\*(?![\w\s])(.*?)\*/)) {
+                console.warn('renderInlineMarkdown: leftover asterisks in', original);
+            }
+            out = out.replace(/\*(.+?)\*/g, '<em>$1</em>');
+        }
+
+        return out;
     }
 
     async function loadTree() {
