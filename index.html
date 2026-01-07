@@ -352,15 +352,16 @@
             } else if (ph.type === 'math') {
                 // Decide whether math has inner content after removing delimiters
                 const inner = ph.content.replace(/^\$+|\$+$/g, '').trim();
-                if (!inner) {
-                    // nothing useful inside math delimiters (e.g. `$ $ $`), show as code literal
-                    out = out.replace(ph.token, `<code>${escapeHTML(ph.content)}</code>`);
+                // If inner is empty or is only punctuation/short non-math token, show as code literal
+                const isPunctuationOnly = /^\p{P}+$/u.test(inner);
+                const isShortNonAlnum = inner.length <= 2 && !/[A-Za-z0-9\\{}\[\]]/.test(inner);
+                if (!inner || isPunctuationOnly || isShortNonAlnum) {
+                    // nothing useful inside math delimiters or just punctuation: show as code literal WITHOUT $ delimiters
+                    out = out.replace(ph.token, `<code>${escapeHTML(inner || ph.content)}</code>`);
                 } else {
                     // normalize spacing around inner content and keep same number of $ delimiters
                     const m = ph.content.match(/^(\$+)[\s\S]*?(\$+)$/);
                     if (m) {
-                        const open = m[1];
-                        const close = m[2];
                         const normalized = ph.content.replace(/^(\$+)\s*([\s\S]*?)\s*(\$+)$/, (all, o, ins, c) => o + ins.trim() + c);
                         out = out.replace(ph.token, normalized);
                     } else {
