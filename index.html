@@ -330,10 +330,10 @@
             }
         });
 
-        // Also preserve raw $...$ math outside backticks (e.g. "$ ; $") by replacing with placeholders
-        replaced = replaced.replace(/\$\s*([^$]+?)\s*\$/g, (m, inside) => {
+        // Also preserve raw $...$ math outside backticks (supports matching same number of $ delimiters, e.g. $..$, $$..$$, $$$..$$$)
+        replaced = replaced.replace(/(\${1,})\s*([\s\S]*?)\s*\1/g, (m, delims, inside) => {
             const token = `@@MATH${placeholderIndex}@@`;
-            codePlaceholders.push({ token, type: 'math', content: `$${inside.trim()}$` });
+            codePlaceholders.push({ token, type: 'math', content: `${delims}${inside.trim()}${delims}` });
             placeholderIndex++;
             return token;
         });

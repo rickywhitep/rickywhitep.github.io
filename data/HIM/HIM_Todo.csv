@@ -1,0 +1,25 @@
+[HIM Tema 1] Diferencia Cálculo Simbólico vs Numérico;Maxima (Simbólico): Manipulación de expresiones exactas sin asignar valores a variables (ej: $a+b$ es una suma de símbolos). Scilab (Numérico): Cálculo con aproximaciones decimales y precisión finita (coma flotante).
+[HIM Tema 1] Asignación de variables en Maxima;Se utiliza el operador de dos puntos $:$. Ejemplo: $a : 10$.
+[HIM Tema 1] Asignación de variables en Scilab;Se utiliza el signo igual $=$. Ejemplo: $a = 10$.
+[HIM Tema 1] Definición de funciones en Maxima;Se utiliza el operador $: =$. Ejemplo: $f(x) := x^2$.
+[HIM Tema 1] Mostrar salida de comando (Sintaxis);Maxima: Finalizar con punto y coma $;$. Scilab: Finalizar con coma $,$ o dejar sin símbolo.
+[HIM Tema 1] Ocultar salida de comando (Sintaxis);Maxima: Finalizar con el símbolo del dólar $\$$. Scilab: Finalizar con punto y coma $;$.
+[HIM Tema 1] Constantes Matemáticas Fundamentales;En ambos se usa el prefijo $\%$ para constantes: $\%pi$, $\%e$, $\%i$.
+[HIM Tema 1] Evaluación numérica en Maxima;Se usa $float(expr)$ para precisión estándar o $bfloat(expr)$ para precisión arbitraria controlada por la variable $fpprec$.
+[HIM Tema 2] Simplificación de expresiones en Maxima;Racionales: $ratsimp(expr)$. Radicales/Logaritmos: $radcan(expr)$. Trigonométricas: $trigsimp(expr)$.
+[HIM Tema 2] Factorización en Maxima;Racional: $factor(expr)$. Compleja: $gfactor(expr)$ (factoriza sobre los complejos usando $\%i$).
+[HIM Tema 2] Resolución de ecuaciones en Maxima;Exacta: $solve(ecuacion, x)$. Numérica de polinomios: $allroots(polinomio)$.
+[HIM Tema 2] Definición de vectores en Scilab;Fila: Elementos entre corchetes con espacios o comas $v = [1, 2, 3]$. Columna: Elementos separados por punto y coma $v = [1; 2; 3]$.
+[HIM Tema 2] Operaciones Matriciales vs Elemento a Elemento (Scilab);Matricial: $* , / , \hat{ }$. Elemento a elemento: $.* , ./ , . \hat{ }$ (añadiendo el punto antes del operador).
+[HIM Tema 2] Sistemas de ecuaciones lineales en Scilab;Para resolver $Ax=b$, se utiliza el operador backslash: $x = A \setminus b$.
+[HIM Tema 3] Cálculo de Límites en Maxima;Sintaxis: $limit(f(x), x, punto, direccion)$. Direcciones posibles: $plus$ (derecha) o $minus$ (izquierda).
+[HIM Tema 3] Derivadas e Integrales en Maxima;Derivada: $diff(f, x, orden)$. Integral: $integrate(f, x)$ (indefinida) o $integrate(f, x, a, b)$ (definida).
+[HIM Tema 3] Desarrollo de Taylor en Maxima;Sintaxis: $taylor(f(x), x, punto, orden)$. Para limpiar el término de error $O(x^n)$ se usa $trunc(\%)$.
+[HIM Tema 3] Transformaciones Trigonométricas en Maxima;Expandir: $trigexpand$. Reducir (linealizar): $trigreduce$. Simplificar: $trigsimp$.
+[HIM Tema 4] Estructuras de Control en Scilab;Condicional: $if \dots then \dots else \dots end$. Bucles: $for \ i=1:n \dots end$ y $while \ cond \dots end$.
+[HIM Tema 4] Resolución Numérica de Ecuaciones;Scilab: $fsolve(punto\_inicial, funcion)$. Maxima: $find\_root(f, x, a, b)$ (requiere intervalo de cambio de signo).
+[HIM Tema 4] Ecuaciones Diferenciales Ordinarias (EDO);Scilab (Numérico): $ode(y0, t0, t, f)$. Maxima (Simbólico): $ode2(ecuacion, y, x)$ (usa $ic1$ o $ic2$ para valores iniciales).
+[HIM Tema 4] Optimización en Scilab;Se utiliza $fminsearch(funcion, x0)$ para buscar mínimos locales sin restricciones.
+[HIM Tema 5] Lectura y Escritura de datos en Scilab;Se utilizan $fscanfMat('archivo')$ para importar matrices y $fprintfMat('archivo', M)$ para exportar.
+[HIM Tema 5] Interpolación en Scilab;Lineal: $interpln(datos, x\_eval)$. Splines: Requiere dos pasos, $d = splin(x, y)$ seguido de $interp(x\_eval, x, y, d)$.
+[HIM Tema 5] Ajuste por Mínimos Cuadrados en Maxima;Se carga el paquete con $load(lsquares)$ y se usa $lsquares\_estimates(matriz, [x,y], ecuacion, [params])$.
