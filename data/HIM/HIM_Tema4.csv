@@ -1,4 +1,4 @@
-[Tema 4 Scilab] Extensión de Scripts;Archivos `.sce` (ejecutables generales) y `.sci` (bibliotecas de funciones).
+﻿[Tema 4 Scilab] Extensión de Scripts;Archivos `.sce` (ejecutables generales) y `.sci` (bibliotecas de funciones).
 [Tema 4 Scilab] Comentarios;Se usa la doble barra `//`. (Ej: `// Esto es un comentario`).
 [Tema 4 Maxima] Comentarios;Se encierran entre `/*` y `*/`. (Ej: `/* Comentario */`).
 [Tema 4 Scilab] Condicional IF;`if condicion then ... else ... end`.

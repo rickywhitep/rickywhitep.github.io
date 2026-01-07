@@ -1,4 +1,4 @@
-[Tema 3 Maxima] Cálculo de Límites;`limit(f(x), x, punto)`. Calcula $\lim_{x \to p} f(x)$.
+﻿[Tema 3 Maxima] Cálculo de Límites;`limit(f(x), x, punto)`. Calcula $\lim_{x \to p} f(x)$.
 [Tema 3 Maxima] Límites Laterales;`limit(f(x), x, punto, plus)` (derecha) o `limit(f(x), x, punto, minus)` (izquierda).
 [Tema 3 Maxima] Límites en el Infinito;Usar `inf` (infinito positivo) o `minf` (infinito negativo) como punto.
 [Tema 3 Scilab] Cálculo de Límites;No tiene función simbólica. Se aproxima numéricamente evaluando $f(x)$ muy cerca del punto (ej: $x + 10^{-6}$).

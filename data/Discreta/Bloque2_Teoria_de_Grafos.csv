@@ -1,4 +1,4 @@
-Definición de Grafo [2-1 Grafos];Un grafo $G$ consta de un conjunto $V$ de vértices y un conjunto $E$ de pares no ordenados de elementos distintos de $V$ (aristas). Se denota $G=(V,E)$.
+﻿Definición de Grafo [2-1 Grafos];Un grafo $G$ consta de un conjunto $V$ de vértices y un conjunto $E$ de pares no ordenados de elementos distintos de $V$ (aristas). Se denota $G=(V,E)$.
 Vértices Adyacentes [2-1 Grafos];Dados $u, v \in V$, si $\{u,v\} \in E$ (arista $uv$), se dice que $u$ y $v$ son adyacentes.
 Multigrafo [2-1 Grafos];Variación de grafo donde el conjunto de aristas puede contener varias aristas distintas con el mismo par de extremos.
 Pseudografo [2-1 Grafos];Variación de grafo donde están permitidas aristas cuyos extremos coinciden (lazos).
@@ -35,7 +35,7 @@ Desigualdad de Aristas (Planos) [2-4 Mapas];Si $G$ es plano conexo con $\#V > 2$
 Grafos No Planos Elementales [2-4 Mapas];$K_5$ (completo de 5 vértices) y $K_{3,3}$ (bipartito completo) no son planos.
 Teorema de Kuratowski [2-4 Mapas];Un grafo es plano $\iff$ no contiene ningún subgrafo isomorfo a una subdivisión de $K_5$ o $K_{3,3}$.
 Teorema de los Cuatro Colores [2-4 Mapas];Todo mapa plano puede ser coloreado con a lo sumo 4 colores tal que regiones adyacentes no compartan color.
-Grafo Dual [2-4 Mapas];Grafo $G_M$ cuyos vértices son las regiones de un mapa $M$; dos vértices se unen si las regiones comparten arista.
+Grafo Dual [2-4 Mapas];Grafo $G_M$ cuyos vértices son las regiones de un mapa $M$puntocoma dos vértices se unen si las regiones comparten arista.
 Coloración de Vértices [2-4 Mapas];Asignación $V \to C$ tal que vértices adyacentes tengan distinto color.
 Grafo Bipartito [2-4 Mapas];Grafo cuyos vértices admiten una coloración con 2 colores (se dividen en dos conjuntos disjuntos sin aristas internas).
 Caracterización Grafo Bipartito [2-4 Mapas];Un grafo es bipartito $\iff$ no tiene ciclos de longitud impar.

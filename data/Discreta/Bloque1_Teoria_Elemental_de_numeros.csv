@@ -1,4 +1,4 @@
-Definición de Divisibilidad [1-1 Algoritmos de División];Sean $a, b \in \mathbb{Z}$. Se dice que $a$ divide a $b$ (escrito $a|b$) si $a \neq 0$ y existe un entero $q$ tal que $b = a \cdot q$.
+﻿Definición de Divisibilidad [1-1 Algoritmos de División];Sean $a, b \in \mathbb{Z}$. Se dice que $a$ divide a $b$ (escrito $a|b$) si $a \neq 0$ y existe un entero $q$ tal que $b = a \cdot q$.
 Algoritmo de la División [1-1 Algoritmos de División];Dados $a \in \mathbb{Z}$ y $b \in \mathbb{N}$, existen números enteros únicos $q$ (cociente) y $r$ (resto) tales que $a = bq + r$ con $0 \le r < b$.
 Valor Absoluto [1-1 Algoritmos de División];Aplicación $|\cdot|: \mathbb{Z} \to \mathbb{Z}$ definida por $|n| = n$ si $n \ge 0$ y $|n| = -n$ si $n < 0$. Cumple $|ab| = |a||b|$ y $|a+b| \le |a|+|b|$.
 Definición de Operador MOD [1-1 Algoritmos de División];Sean $a, b \in \mathbb{Z}$ con $b \neq 0$. Si $a = bq + r$ con $0 \le r < |b|$, se define $a \text{ MOD } b = r$.

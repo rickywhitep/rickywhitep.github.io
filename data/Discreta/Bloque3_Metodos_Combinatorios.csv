@@ -1,4 +1,4 @@
-Principio de Adición [3-1 Técnicas Básicas];Sean $A_{1}, \dots, A_{n}$ conjuntos finitos disjuntos dos a dos ($A_{i}\cap A_{j}=\emptyset$). Entonces $|A_{1}\cup \dots \cup A_{n}| = |A_{1}| + \dots + |A_{n}|$.
+﻿Principio de Adición [3-1 Técnicas Básicas];Sean $A_{1}, \dots, A_{n}$ conjuntos finitos disjuntos dos a dos ($A_{i}\cap A_{j}=\emptyset$). Entonces $|A_{1}\cup \dots \cup A_{n}| = |A_{1}| + \dots + |A_{n}|$.
 Principio de Multiplicación [3-1 Técnicas Básicas];Si un experimento se compone de $n$ elecciones sucesivas con $m_1, m_2, \dots, m_n$ opciones respectivamente, el total de resultados es $m_1 \cdot m_2 \cdots m_n$. Formalmente $|A_1 \times \dots \times A_n| = \prod |A_i|$.
 Principio de Distribución (Palomar) [3-1 Técnicas Básicas];Si se distribuyen $np+m$ objetos en $n$ cajas (con $m>0$), entonces al menos una caja contiene $p+1$ o más objetos. (Principio del Cajón de Dirichlet).
 Permutación [3-2 Permutaciones y Combinaciones];Una permutación de un conjunto $A$ es una biyección de $A$ en sí mismo. El número de permutaciones de $n$ elementos es $P(n) = n!$.

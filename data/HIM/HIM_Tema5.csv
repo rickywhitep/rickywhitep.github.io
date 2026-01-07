@@ -1,4 +1,4 @@
-[Tema 5 Scilab] Lectura de Matriz (Texto);`M = fscanfMat('ruta/archivo.txt')`. Lee una matriz numérica desde un archivo de texto.
+﻿[Tema 5 Scilab] Lectura de Matriz (Texto);`M = fscanfMat('ruta/archivo.txt')`. Lee una matriz numérica desde un archivo de texto.
 [Tema 5 Scilab] Escritura de Matriz (Texto);`fprintfMat('ruta/archivo.txt', M, 'formato')`. Guarda la matriz `M` en un archivo.
 [Tema 5 Maxima] Cargar Paquete I/O;`load(numericalio)$`. Necesario para leer/escribir archivos de datos.
 [Tema 5 Maxima] Lectura de Matriz;`M : read_matrix("ruta/archivo.txt")$`. (Requiere `numericalio`).
@@ -7,7 +7,7 @@
 [Tema 5 Maxima] Cargar Paquete Estadística;`load(descriptive)$`. Necesario para funciones estadísticas.
 [Tema 5 Maxima] Media y Desviación;`mean(lista)` y `std(lista)`. (Requiere `descriptive`).
 [Tema 5 Scilab] Regresión Lineal ($y=ax+b$);`[a, b, sig] = reglin(x, y)`. Calcula los coeficientes de la recta de regresión.
-[Tema 5 Scilab] Interpolación Lineal;`y_new = interpln(d, x_new)`. **¡Ojo!** `d` debe ser una matriz de $2 \times N$ donde la fila 1 son las X y la fila 2 las Y ($d=[x; y]$).
+[Tema 5 Scilab] Interpolación Lineal;`y_new = interpln(d, x_new)`. **¡Ojo!** `d` debe ser una matriz de $2 \times N$ donde la fila 1 son las X y la fila 2 las Y ($d=[xpuntocoma y]$).
 [Tema 5 Scilab] Interpolación Spline (Paso 1);`d = splin(x, y)`. Calcula las derivadas (coeficientes) para el spline cúbico.
 [Tema 5 Scilab] Interpolación Spline (Paso 2);`y_new = interp(x_new, x, y, d)`. Evalúa el spline usando los coeficientes `d` obtenidos en el paso 1.
 [Tema 5 Maxima] Cargar Paquete Mínimos Cuadrados;`load(lsquares)$`.
