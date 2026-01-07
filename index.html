@@ -345,13 +345,28 @@
         out = out.replace(/\*\*(?=\S)([\s\S]*?\S)\*\*/g, '<strong>$1</strong>');
         out = out.replace(/\*(?=\S)([\s\S]*?\S)\*/g, '<em>$1</em>');
 
-        // Restore placeholders: code -> <code>escaped</code>, math -> raw (will be processed by MathJax)
+        // Restore placeholders: code -> <code>escaped</code>, math -> raw (or code if empty) for MathJax
         for (const ph of codePlaceholders) {
             if (ph.type === 'code') {
                 out = out.replace(ph.token, `<code>${ph.content}</code>`);
             } else if (ph.type === 'math') {
-                // place math content with original $ delimiters (trimmed)
-                out = out.replace(ph.token, ph.content);
+                // Decide whether math has inner content after removing delimiters
+                const inner = ph.content.replace(/^\$+|\$+$/g, '').trim();
+                if (!inner) {
+                    // nothing useful inside math delimiters (e.g. `$ $ $`), show as code literal
+                    out = out.replace(ph.token, `<code>${escapeHTML(ph.content)}</code>`);
+                } else {
+                    // normalize spacing around inner content and keep same number of $ delimiters
+                    const m = ph.content.match(/^(\$+)[\s\S]*?(\$+)$/);
+                    if (m) {
+                        const open = m[1];
+                        const close = m[2];
+                        const normalized = ph.content.replace(/^(\$+)\s*([\s\S]*?)\s*(\$+)$/, (all, o, ins, c) => o + ins.trim() + c);
+                        out = out.replace(ph.token, normalized);
+                    } else {
+                        out = out.replace(ph.token, ph.content);
+                    }
+                }
             }
         }
 
