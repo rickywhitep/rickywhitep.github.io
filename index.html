@@ -168,45 +168,33 @@
             #anverso { font-size: 1.5rem; }
             #reverso { font-size: 1.3rem; }
 
-            /* Mover la botonera arriba para evitar la botonera del sistema en iPhone */
+                /* Mover la botonera abajo para quedar encima de la barra de iOS */
             .controls {
                 position: fixed;
                 left: 0;
                 right: 0;
-                top: calc(env(safe-area-inset-top, 0px) + 12px);
-                padding: 8px 16px;
-                z-index: 90;
-                justify-content: center;
+                bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+                padding: 8px 48px;
+                z-index: 100;
                 width: 100%;
                 box-sizing: border-box;
                 display: flex;
+                align-items: center;
+                justify-content: center;
                 gap: 12px;
                 pointer-events: auto;
+                background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.5));
+                backdrop-filter: blur(6px);
             }
-            .controls .nav-btn { max-width: 150px; }
+            .controls .nav-btn { max-width: 160px; padding: 12px 18px; border-radius: 12px; flex: 0 0 auto; }
 
-            /* Previous / Next: moved to bottom above system bar */
-            .controls .nav-prev,
-            .controls .nav-next {
-                position: fixed;
-                bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
-                padding: 12px 18px;
-                z-index: 95;
-                width: 120px;
-                max-width: 44%;
-                border-radius: 12px;
-                background: #111;
-                color: #fff;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            }
-            .controls .nav-prev { left: 12px; }
-            .controls .nav-next { right: 12px; }
+            /* Prev/Next anchored to sides but still visually above the system bar */
+            .controls .nav-prev { position: absolute; left: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); z-index: 101; }
+            .controls .nav-next { position: absolute; right: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); z-index: 101; }
+            .controls #btnAction { margin: 0 auto; }
 
-            /* Ensure topbar keeps only the action button centered */
-            .controls { align-items: center; }
-
-            /* Dejar espacio superior para la botonera y evitar que el contenido quede atrás */
-            .card-viewport { padding-top: calc(env(safe-area-inset-top, 0px) + 80px); padding-bottom: 24px; }
+            /* Dejar espacio inferior para la botonera y evitar que el contenido quede atrás */
+            .card-viewport { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 84px); padding-top: calc(env(safe-area-inset-top, 0px) + 12px); }
 
             /* No ocupar la ventana completa en vertical para dejar espacio sobre la botonera del sistema */
             html, body, #main { min-height: calc(100vh - env(safe-area-inset-bottom, 0px)); }
