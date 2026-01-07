@@ -387,6 +387,14 @@
             const res = await fetch(url);
             const items = await res.json();
 
+            // If API returns an error object (eg. rate limit), show it in the UI instead of failing silently
+            if (!Array.isArray(items)) {
+                const msg = items && (items.message || items.error || JSON.stringify(items));
+                parentElement.innerHTML = `<div style="padding:12px;color:#f88;">Error cargando temario: ${escapeHTML(msg)}</div>`;
+                console.error('Error fetching repo contents:', items);
+                return;
+            }
+
             // Ordenar: Carpetas primero
             items.sort((a, b) => (b.type === 'dir') - (a.type === 'dir'));
 
