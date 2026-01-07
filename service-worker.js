@@ -1,3 +1,5 @@
+// Incluido contenido de HIM
+// Nota: marcador indicando inclusión de recursos relacionados con HIM
 const CACHE_NAME = 'ricky-cards-v1';
 const OFFLINE_URL = '/offline.html';
 const CORE_ASSETS = [
