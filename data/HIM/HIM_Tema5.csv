@@ -1,18 +1,17 @@
-﻿[Tema 5 Scilab] Lectura de Matriz (Texto);`M = fscanfMat('ruta/archivo.txt')`. Lee una matriz numérica desde un archivo de texto.
-[Tema 5 Scilab] Escritura de Matriz (Texto);`fprintfMat('ruta/archivo.txt', M, 'formato')`. Guarda la matriz `M` en un archivo.
-[Tema 5 Maxima] Cargar Paquete I/O;`load(numericalio)$`. Necesario para leer/escribir archivos de datos.
-[Tema 5 Maxima] Lectura de Matriz;`M : read_matrix("ruta/archivo.txt")$`. (Requiere `numericalio`).
-[Tema 5 Scilab] Media Aritmética;`mean(x)`. Si es una matriz, `mean(A, 'r')` (por columnas) o `mean(A, 'c')` (por filas).
-[Tema 5 Scilab] Desviación Típica;`stdev(x)`. Calcula la desviación estándar muestral.
-[Tema 5 Maxima] Cargar Paquete Estadística;`load(descriptive)$`. Necesario para funciones estadísticas.
-[Tema 5 Maxima] Media y Desviación;`mean(lista)` y `std(lista)`. (Requiere `descriptive`).
-[Tema 5 Scilab] Regresión Lineal ($y=ax+b$);`[a, b, sig] = reglin(x, y)`. Calcula los coeficientes de la recta de regresión.
-[Tema 5 Scilab] Interpolación Lineal;`y_new = interpln(d, x_new)`. **¡Ojo!** `d` debe ser una matriz de $2 \times N$ donde la fila 1 son las X y la fila 2 las Y ($d=[xpuntocoma y]$).
-[Tema 5 Scilab] Interpolación Spline (Paso 1);`d = splin(x, y)`. Calcula las derivadas (coeficientes) para el spline cúbico.
-[Tema 5 Scilab] Interpolación Spline (Paso 2);`y_new = interp(x_new, x, y, d)`. Evalúa el spline usando los coeficientes `d` obtenidos en el paso 1.
-[Tema 5 Maxima] Cargar Paquete Mínimos Cuadrados;`load(lsquares)$`.
-[Tema 5 Maxima] Ajuste Mínimos Cuadrados;`lsquares_estimates(matriz, [x,y], y=a*x+b, [a,b])`. Ajusta la ecuación ($y=ax+b$) a los datos de la `matriz` estimando los parámetros `[a,b]`.
-[Tema 5 Maxima] Cargar Paquete Interpolación;`load(interpol)$`.
-[Tema 5 Maxima] Interpolación Lagrange;`lagrange(puntos)`. Devuelve el **polinomio** único de grado $n-1$ que pasa por los puntos.
-[Tema 5 Maxima] Interpolación Lineal;`linearinterpol(puntos)`. Devuelve una función definida a trozos (tramos rectos).
-[Tema 5 Maxima] Interpolación Spline Cúbico;`cspline(puntos)`. Devuelve la función de spline cúbico.
+﻿[Tema 5 Scilab] Lectura de datos externos (CSV);Se utiliza la función $csvRead('ruta/archivo.csv')$. Permite importar datos tabulares directamente desde un archivo CSV.
+[Tema 5 Scilab] Conversión de datos leídos (Strings a Números);Si los datos se importan como texto, se emplea $evstr(matriz)$ para convertirlos en valores numéricos. Nota: $csvRead$ suele detectar números automáticamente.
+[Tema 5 Maxima] Cargar paquete para archivos de datos;Se utiliza el comando $load(numericalio)$. Es imprescindible para usar funciones de lectura de archivos.
+[Tema 5 Maxima] Lectura de archivos de datos;Se utiliza el comando $read\_matrix("ruta/archivo.txt")$ o $read\_list$. Requiere haber cargado previamente $numericalio$.
+[Tema 5 Scilab] Media aritmética de un conjunto;Se utiliza la función $mean(x)$. Si es una matriz, se puede especificar el sentido con $'r'$ (filas) o $'c'$ (columnas).
+[Tema 5 Scilab] Desviación típica muestral;Se utiliza la función $stdev(x)$.
+[Tema 5 Maxima] Funciones estadísticas descriptivas;Requiere cargar el paquete con $load(descriptive)$. Proporciona las funciones $mean(lista)$ y $std(lista)$.
+[Tema 5 Scilab] Regresión lineal simple;Se utiliza el comando $[a, b] = reglin(x, y)$ para obtener los coeficientes de la recta $y = ax + b$.
+[Tema 5 Scilab] Interpolación lineal;Se utiliza la función $interpln(datos, x\_eval)$, donde $datos$ debe ser una matriz de dos filas $[x; y]$.
+[Tema 5 Scilab] Interpolación por Splines (Paso 1: Derivadas);Se utiliza la función $d = splin(x, y)$ para calcular las pendientes en los nodos.
+[Tema 5 Scilab] Interpolación por Splines (Paso 2: Evaluación);Se utiliza la función $y\_eval = interp(x\_eval, x, y, d)$ usando las derivadas obtenidas con $splin$.
+[Tema 5 Maxima] Paquete para mínimos cuadrados;Se utiliza el comando $load(lsquares)$.
+[Tema 5 Maxima] Estimación por mínimos cuadrados;Se usa $lsquares\_estimates(matriz, [x,y], ecuacion, [params])$. Ejemplo: $lsquares\_estimates(M, [x,y], y=a*x+b, [a,b])$.
+[Tema 5 Maxima] Paquete para interpolación;Se utiliza el comando $load(interpol)$.
+[Tema 5 Maxima] Interpolación polinómica de Lagrange;Se utiliza la función $lagrange(puntos)$. Genera el polinomio que pasa exactamente por todos los puntos.
+[Tema 5 Maxima] Interpolación por Splines cúbicos;Se utiliza la función $cspline(puntos)$.
+[Tema 5 Scilab] Exportación de resultados a archivo (CSV);Se utiliza la función $csvWrite(M, 'archivo.csv')$.
