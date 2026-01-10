@@ -83,6 +83,18 @@
         .caret { display:inline-block; transition: transform 0.15s; font-size: 0.95rem; color: var(--text-dim); }
         .folder-header.open .caret { transform: rotate(90deg); color: var(--accent); }
         .folder-children { padding-left: 10px; display: none; margin-bottom: 8px; border-left: 1px solid var(--border); }
+
+        /* Botón de recarga forzada */
+        #btnReload {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--accent);
+            font-size: 0.95rem;
+            cursor: pointer;
+            padding: 6px 8px;
+            border-radius: 8px;
+        }
+        #btnReload:hover { background: rgba(255,255,255,0.03); border-color: #333; }
         
 
         .csv-link {
@@ -229,7 +241,7 @@
 <body class="show-menu">
 
     <div id="sidebar">
-        <div class="sidebar-header">RICKY CARDS</div>
+        <div class="sidebar-header">RICKY CARDS <button id="btnReload" title="Forzar recarga" onclick="forceReload()" aria-label="Forzar recarga">⟳</button></div>  
         <div id="tree">Cargando temario...</div>
     </div>
 
@@ -405,6 +417,27 @@
         const data = await res.text();
         try { localStorage.setItem(key, JSON.stringify({ ts: Date.now(), data })); } catch (e) {}
         return data;
+    }
+
+    // Limpia la caché local de API/CSV (prefijos utilizados por fetchJsonWithCache / fetchTextWithCache)
+    function clearApiCache() {
+        try {
+            Object.keys(localStorage).forEach(k => {
+                if (k.startsWith('api_cache:') || k.startsWith('api_cache_text:')) localStorage.removeItem(k);
+            });
+        } catch (e) { console.warn('clearApiCache failed', e); }
+    }
+
+    // Forzar recarga del árbol (usa clearApiCache y recarga)
+    async function forceReload() {
+        const treeElement = document.getElementById('tree');
+        treeElement.innerHTML = '<div style="padding:12px;color:#888;">Forzando recarga...</div>';
+        clearApiCache();
+        try {
+            await loadTree();
+        } catch (e) {
+            treeElement.innerHTML = `<div style="padding:12px;color:#f88;">Error recargando: ${escapeHTML(e.message || e)}</div>`;
+        }
     }
 
     async function loadTree() {
