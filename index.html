@@ -375,6 +375,38 @@
         return out;
     }
 
+    // Simple cache helpers (localStorage-backed) - 5 minute TTL
+    const API_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+    async function fetchJsonWithCache(url) {
+        const key = 'api_cache:' + url;
+        try {
+            const raw = localStorage.getItem(key);
+            if (raw) {
+                const obj = JSON.parse(raw);
+                if (Date.now() - obj.ts < API_CACHE_TTL) return obj.data;
+            }
+        } catch (e) { /* ignore */ }
+        const res = await fetch(url);
+        const data = await res.json();
+        try { localStorage.setItem(key, JSON.stringify({ ts: Date.now(), data })); } catch (e) {}
+        return data;
+    }
+
+    async function fetchTextWithCache(url) {
+        const key = 'api_cache_text:' + url;
+        try {
+            const raw = localStorage.getItem(key);
+            if (raw) {
+                const obj = JSON.parse(raw);
+                if (Date.now() - obj.ts < API_CACHE_TTL) return obj.data;
+            }
+        } catch (e) { /* ignore */ }
+        const res = await fetch(url);
+        const data = await res.text();
+        try { localStorage.setItem(key, JSON.stringify({ ts: Date.now(), data })); } catch (e) {}
+        return data;
+    }
+
     async function loadTree() {
         const treeElement = document.getElementById('tree');
         treeElement.innerHTML = '';
@@ -384,8 +416,7 @@
     async function loadTreeRecursive(path, parentElement) {
         try {
             const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`;
-            const res = await fetch(url);
-            const items = await res.json();
+            const items = await fetchJsonWithCache(url);
 
             // If API returns an error object (eg. rate limit), show it in the UI instead of failing silently
             if (!Array.isArray(items)) {
@@ -410,19 +441,25 @@
 
                     const children = document.createElement('div');
                     children.className = 'folder-children';
+                    children.style.display = 'none';
 
-                    header.onclick = () => {
+                    header.onclick = async () => {
                         const isOpen = header.classList.toggle('open');
                         children.style.display = isOpen ? 'block' : 'none';
                         const caret = header.querySelector('.caret');
                         if (caret) caret.textContent = isOpen ? '▾' : '▸';
+
+                        if (isOpen && !header.dataset.loaded) {
+                            header.dataset.loaded = '1';
+                            children.innerHTML = '<div style="padding:8px;color:#888;">Cargando...</div>';
+                            await loadTreeRecursive(item.path, children);
+                        }
                     };
 
                     folderGroup.appendChild(header);
                     folderGroup.appendChild(children);
                     parentElement.appendChild(folderGroup);
 
-                    await loadTreeRecursive(item.path, children);
                 } else if (item.name.endsWith('.csv')) {
                     const div = document.createElement('div');
                     div.className = 'csv-link';
@@ -461,13 +498,12 @@
                     parentElement.appendChild(qList);
                 }
             }
-        } catch (e) { console.error("Error API:", e); }
+        } catch (e) { console.error("Error API:", e); parentElement.innerHTML = `<div style="padding:12px;color:#f88;">Error cargando temario: ${escapeHTML(e.message || e)}</div>`; }
     }
 
     async function loadCSV(url, listId, key) {
         currentKey = key || null;
-        const res = await fetch(url);
-        const data = await res.text();
+        const data = await fetchTextWithCache(url);
         currentCards = data.split('\n').filter(l => l.includes(';')).map(l => {
             const p = l.split(';');
             return { a: p[0].trim(), r: p[1].trim() };
